@@ -72,6 +72,8 @@ a {
     color: #1756a9; }
   a:hover {
     color: #111; }
+  a.white:hover {
+    color: #fff; }
 
 /**
  * Blockquotes
@@ -156,13 +158,14 @@ pre {
   position: relative; }
 
 .site-title {
+  color: #ccc !important;
   font-size: 26px;
   line-height: 56px;
   letter-spacing: -1px;
   margin-bottom: 0;
   float: left; }
-  .site-title, .site-title:visited {
-    color: #424242; }
+  .site-title:hover {
+    color: #2A7AE2 !important; }
 
 .fixed {
   margin-top: -0.2em;
@@ -175,8 +178,11 @@ pre {
   .site-nav .menu-icon {
     display: none; }
   .site-nav .page-link {
-    color: #111;
+    color: #ccc;
+    letter-spacing: -1px;
     line-height: 1.5; }
+    .site-nav .page-link:hover {
+      color: #2A7AE2 !important; }
     .site-nav .page-link:not(:last-child) {
       margin-right: 20px; }
   @media screen and (max-width: 600px) {
@@ -189,6 +195,9 @@ pre {
       border-radius: 5px;
       margin-right: 20px;
       text-align: right; }
+      .site-nav .page-link {
+        color: #000;
+        line-height: 1.5; }
       .site-nav .menu-icon {
         display: block;
         float: right;
@@ -220,13 +229,11 @@ pre {
  */
 .site-footer {
   box-sizing: border-box;
-  margin: -2px 18px 0px 18px;
+  margin: -1px 18px 0px 18px;
   box-shadow: 1px 2px 10px 3px rgba(0, 0, 0, 0.2);
   border-radius: 2px;
   background: #000;
   padding: 30px 0; }
-  .site-footer:hover {
-    color: #111; }
 
 .footer-heading {
   font-size: 18px;
