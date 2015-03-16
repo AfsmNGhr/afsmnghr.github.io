@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Говорящий пингвин</title>
+  <meta name="description" content="На бескрайних просторах интернета немало
+статей про умные дома, очки дополненной реальности, новомодный «интернет вещей»
+и другие преспективы вообразимого бу...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical"
+href="https://afsmnghr.gihub.io/2015/02/22/speaking-penguin.html">
+  <link rel="alternate" type="application/rss+xml" title="DataTrash"
+href="https://afsmnghr.gihub.io/feed.xml">
+</head>
+
+
+  <body>
+
+    <div class='fixed'>
+  <header class="site-header">
+
+    <div class="wrapper">
+
+      <a class="site-title" href="/">DataTrash</a>
+
+      <nav class="site-nav">
+        <a href="#" class="menu-icon">
+          <svg viewBox="0 0 18 15">
+            <path fill="#424242"
+d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+            <path fill="#424242"
+d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+            <path fill="#424242"
+d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+          </svg>
+        </a>
+
+        <div class="trigger">
+
+
+          <a class="page-link" href="/intro/">Intro</a>
+
+
+
+
+
+
+
+
+        </div>
+      </nav>
+
+    </div>
+
+  </header>
+</div>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope
+itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Говорящий пингвин</h1>
+    <p class="post-meta"><time datetime="2015-02-22T19:51:00+03:00"
+itemprop="datePublished">Feb 22, 2015</time></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>На бескрайних просторах интернета немало статей про умные дома, очки
+дополненной реальности, новомодный «интернет вещей» и другие преспективы
+вообразимого будущего. <br />
+Будет ли оно светлым или в «добрых» традициях нуарного киберпанка, время
+покажет, <br />
+а пока мы сделаем маленький шаг навстречу ему.</p>
+
+<p>Как вы догадались, речь пойдёт о синтезе речи. <br />
+Я расскажу, как реализовал, c чем столкнулся. <br />
+Буду не оригинальным, использовал festival.</p>
+
+<iframe class="video-box" width="560" height="315"
+src="https://www.youtube.com/embed/VV3BAWrGRLg" frameborder="0"
+allowfullscreen=""></iframe>
+
+<h1 id="section">Начало</h1>
+
+<p>Подопытный:</p>
+
+<ul>
+  <li>Ноутбук HP</li>
+  <li>
+    <p>Звук alsa (позднее поставил pulseaudio)</p>
+  </li>
+  <li>Установка, никаких проблем не должно возникать. Пример</li>
+  <li>Примеры скриптов</li>
+</ul>
+
+<h1 id="section-1">Оповещение заряда батареи</h1>
+
+<p><em>Скрипт узнает статус и заряд. <br />
+Сообщает о заряде, если не подключен к зарядке и заряд &lt; 50%.</em></p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span
+class="c">#!/bin/bash</span>
+
+<span class="nv">scripts</span><span class="o">=</span><span
+class="s2">"</span><span class="nv">$HOME</span><span
+class="s2">/.bin/festival/"</span>
+<span class="nv">charge</span><span class="o">=</span><span
+class="k">$(</span>cat /sys/class/power_supply/BAT0/capacity<span
+class="k">)</span>
+<span class="nv">procent</span><span class="o">=</span><span
+class="k">$(${</span><span class="nv">scripts</span><span
+class="k">}</span>pluralform.sh <span class="nv">$charge</span> процент процента
+процентов<span class="k">)</span>
+<span class="nv">status</span><span class="o">=</span><span
+class="k">$(</span>cat /sys/class/power_supply/BAT0/status<span
+class="k">)</span>
+<span class="nv">text</span><span class="o">=</span><span
+class="k">$(</span><span class="nb">echo</span> <span class="s2">"Заряд батареи
+</span><span class="nv">$charge</span><span class="s2"> </span><span
+class="nv">$procent</span><span class="s2">"</span><span class="k">)</span>
+<span class="nv">critical</span><span class="o">=</span><span
+class="s2">"Критический заряд батареи."</span>
+
+<span class="k">if</span> <span class="o">[</span> <span
+class="s2">"</span><span class="nv">$status</span><span class="s2">"</span>
+<span class="o">==</span> <span class="s1">'Discharging'</span> <span
+class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span>
+<span class="nv">$charge</span> -gt 10 -a <span class="nv">$charge</span> -lt 50
+<span class="o">]</span>;
+<span class="k">then</span>
+    <span class="k">${</span><span class="nv">scripts</span><span
+class="k">}</span>say.sh <span class="s2">"</span><span
+class="nv">$text</span><span class="s2">"</span>
+<span class="k">elif</span> <span class="o">[</span> <span
+class="s2">"</span><span class="nv">$status</span><span class="s2">"</span>
+<span class="o">==</span> <span class="s1">'Discharging'</span> <span
+class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span>
+<span class="nv">$charge</span> -lt 10 <span class="o">]</span>;
+<span class="k">then</span>
+    <span class="k">${</span><span class="nv">scripts</span><span
+class="k">}</span>say.sh <span class="s2">"</span><span
+class="nv">$critical</span><span class="s2">"</span>
+<span class="k">fi
+</span><span class="nb">exit</span></code></pre></div>
+
+<p><em>Склонение</em></p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span
+class="c">#!/usr/bin/env bash</span>
+
+<span class="nv">n</span><span class="o">=</span><span class="k">$((</span><span
+class="nv">$1</span> <span class="o">%</span> <span class="m">100</span><span
+class="k">))</span>
+<span class="nv">n1</span><span class="o">=</span><span
+class="k">$((</span><span class="nv">$n</span> <span class="o">%</span> <span
+class="m">10</span><span class="k">))</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$n</span>
+-gt 10 -a <span class="nv">$n</span> -lt 20 <span class="o">]</span>; <span
+class="k">then </span><span class="nb">echo</span> <span class="nv">$4</span>;
+<span class="k">elif</span> <span class="o">[</span> <span class="nv">$n1</span>
+-gt 1 -a <span class="nv">$n1</span> -lt 5 <span class="o">]</span>; <span
+class="k">then </span><span class="nb">echo</span> <span class="nv">$3</span>;
+<span class="k">elif</span> <span class="o">[</span> <span class="nv">$n1</span>
+-eq 1 <span class="o">]</span>; <span class="k">then </span><span
+class="nb">echo</span> <span class="nv">$2</span>;
+<span class="k">else </span><span class="nb">echo</span> <span
+class="nv">$4</span>
+<span class="k">fi</span></code></pre></div>
+
+<p><em>Скрипт генерирует wav c учётом файлов в dat`е. <br />
+Запоминает текущую громкость, ставит оптимальную. <br />
+Проигрывает и возвращает громкость обратно. Удаляет текущий wav-файл.</em></p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span
+class="c">#!/bin/bash</span>
+
+<span class="nv">data</span><span class="o">=</span><span
+class="s2">"</span><span class="nv">$HOME</span><span
+class="s2">/.bin/festival/data"</span>
+<span class="nv">ru</span><span class="o">=</span><span
+class="s2">"(voice_msu_ru_nsh_clunits)"</span>
+<span class="nv">volume</span><span class="o">=</span><span
+class="k">$(</span>amixer | grep -o <span class="o">[</span>0-9]<span
+class="k">*</span> | sed <span class="s2">"5 ! d"</span><span class="k">)</span>
+<span class="nv">i</span><span class="o">=</span><span class="k">$(</span>ls -r
+<span class="nv">$data</span> | grep -o <span class="o">[</span>0-9]<span
+class="k">*</span> | sed <span class="s2">"1 ! d"</span><span class="k">)</span>
+
+<span class="k">if </span><span class="nb">test</span> -z <span
+class="s2">"</span><span class="nv">$i</span><span class="s2">"</span>;
+<span class="k">then </span><span class="nv">i</span><span class="o">=</span>1;
+<span class="k">elif </span><span class="nb">test</span> -f <span
+class="s2">"</span><span class="nv">$data</span><span
+class="s2">/saytext_</span><span class="nv">$i</span><span
+class="s2">.wav"</span>;
+<span class="k">then </span><span class="nv">i</span><span
+class="o">=</span><span class="k">$((</span><span class="nv">$i</span><span
+class="o">+</span><span class="m">1</span><span class="k">))</span>;
+<span class="k">fi
+
+</span><span class="nb">echo</span> <span class="s2">"</span><span
+class="nv">$1</span><span class="s2">"</span> | text2wave -o <span
+class="nv">$data</span>/saytext_<span class="nv">$i</span>.wav -eval <span
+class="nv">$ru</span> &gt; /dev/null 2&gt;&amp;1
+amixer <span class="nb">set </span>Master 67% &gt; /dev/null 2&gt;&amp;1
+aplay <span class="nv">$data</span>/saytext_<span class="nv">$i</span>.wav &gt;
+/dev/null 2&gt;&amp;1
+
+<span class="nv">aplay</span><span class="o">=</span><span class="k">$(</span>ps
+-el | grep aplay | wc -l<span class="k">)</span>
+<span class="k">if</span> <span class="o">[</span> <span
+class="nv">$aplay</span> -eq 0 <span class="o">]</span>;
+<span class="k">then </span>amixer <span class="nb">set </span>Master <span
+class="nv">$volume</span>% &gt; /dev/null 2&gt;&amp;1;
+<span class="k">fi
+
+</span>rm -f <span class="nv">$data</span>/saytext_<span
+class="nv">$i</span>.wav</code></pre></div>
+
+<h1 id="gmail">Проверка почты gmail</h1>
+
+<p>Нашёл почти готовое решение gem gmail.</p>
+
+<p>Плюсы этого решения:</p>
+
+<ul>
+  <li>Оповещение о кол-ве сообщений по лейблам. <br />
+Предварительно нужно создать фильтры с лейблами на сайте.</li>
+  <li>Возможность прочитать заголовок сообщения и текст (не реализовывал).</li>
+</ul>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span
+class="c1"># coding: utf-8</span>
+<span class="nb">require</span> <span class="s1">'gmail'</span>
+<span class="nb">require</span> <span class="s1">'yaml'</span>
+
+<span class="no">Gmail</span><span class="p">.</span><span
+class="nf">new</span><span class="p">(</span><span
+class="s2">"login"</span><span class="p">,</span> <span
+class="s2">"password"</span><span class="p">)</span> <span class="k">do</span>
+<span class="o">|</span><span class="n">gmail</span><span class="o">|</span>
+
+  <span class="vi">@festival</span> <span class="o">=</span> <span
+class="s2">"$HOME/.bin/festival/"</span>
+  <span class="vi">@labels</span> <span class="o">=</span> <span
+class="p">{</span><span class="s2">"INBOX"</span> <span class="o">=&gt;</span>
+<span class="s2">"Входящие"</span><span class="p">,</span> <span
+class="s2">"Search job"</span> <span class="o">=&gt;</span> <span
+class="s2">"Поиск работы"</span><span class="p">,</span>
+             <span class="s2">"Music"</span> <span class="o">=&gt;</span> <span
+class="s2">"Музыка"</span><span class="p">,</span> <span
+class="s2">"Advertising"</span> <span class="o">=&gt;</span> <span
+class="s2">"Реклама"</span><span class="p">,</span>
+             <span class="s2">"Education"</span> <span class="o">=&gt;</span>
+<span class="s2">"Обучение"</span><span class="p">,</span> <span
+class="s2">"Interesting"</span> <span class="o">=&gt;</span> <span
+class="s2">"Интересное"</span><span class="p">}</span>
+
+  <span class="k">def</span> <span class="nf">check_letters</span><span
+class="p">(</span><span class="n">gmail</span><span class="p">)</span>
+    <span class="n">counts</span> <span class="o">=</span> <span
+class="p">{}</span>
+    <span class="vi">@labels</span><span class="p">.</span><span
+class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span
+class="n">k</span><span class="p">,</span><span class="n">v</span><span
+class="o">|</span>
+      <span class="n">h</span> <span class="o">=</span> <span
+class="p">{</span><span class="n">k</span> <span class="o">=&gt;</span> <span
+class="n">gmail</span><span class="p">.</span><span
+class="nf">mailbox</span><span class="p">(</span><span class="n">k</span><span
+class="p">).</span><span class="nf">count</span><span class="p">(</span><span
+class="ss">:unread</span><span class="p">)}</span>
+      <span class="n">counts</span><span class="p">.</span><span
+class="nf">merge!</span><span class="p">(</span><span class="n">h</span><span
+class="p">)</span>
+    <span class="k">end</span>
+    <span class="k">return</span> <span class="n">counts</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">read_counts_letters</span>
+    <span class="k">unless</span> <span class="no">File</span><span
+class="p">.</span><span class="nf">exist?</span><span class="p">(</span><span
+class="s2">".gmail.yml"</span><span class="p">)</span>
+      <span class="k">return</span> <span class="p">{}</span>
+    <span class="k">end</span>
+    <span class="n">old_counts</span> <span class="o">=</span> <span
+class="no">YAML</span><span class="o">::</span><span class="nb">load</span><span
+class="p">(</span><span class="no">File</span><span class="p">.</span><span
+class="nf">open</span><span class="p">(</span><span
+class="s2">".gmail.yml"</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">old_counts</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">save_counts_letters</span><span
+class="p">(</span><span class="n">counts</span><span class="p">)</span>
+    <span class="nb">system</span><span class="p">(</span><span
+class="s2">"touch .gmail.yml"</span><span class="p">)</span> <span
+class="k">if</span> <span class="no">File</span><span class="p">.</span><span
+class="nf">exist?</span><span class="p">(</span><span
+class="s2">".gmail.yml"</span><span class="p">)</span>
+    <span class="no">File</span><span class="p">.</span><span
+class="nf">open</span><span class="p">(</span><span
+class="s2">".gmail.yml"</span><span class="p">,</span> <span
+class="s2">"w"</span><span class="p">)</span> <span class="k">do</span> <span
+class="o">|</span><span class="n">f</span><span class="o">|</span>
+      <span class="n">f</span><span class="p">.</span><span
+class="nf">write</span> <span class="n">counts</span><span
+class="p">.</span><span class="nf">to_yaml</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span
+class="nf">check_new_counts_letters</span><span class="p">(</span><span
+class="n">counts</span><span class="p">,</span> <span
+class="n">old_counts</span><span class="p">)</span>
+    <span class="n">counts</span><span class="p">.</span><span
+class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span
+class="n">k</span><span class="p">,</span> <span class="n">v</span><span
+class="o">|</span>
+      <span class="k">if</span> <span class="n">old_counts</span><span
+class="p">.</span><span class="nf">empty?</span> <span class="o">||</span> <span
+class="n">v</span> <span class="o">&lt;</span> <span
+class="n">old_counts</span><span class="p">[</span><span class="n">k</span><span
+class="p">]</span>
+        <span class="n">count</span> <span class="o">=</span> <span
+class="n">v</span>
+      <span class="k">else</span>
+        <span class="n">count</span> <span class="o">=</span> <span
+class="n">v</span> <span class="o">-</span> <span
+class="n">old_counts</span><span class="p">[</span><span class="n">k</span><span
+class="p">]</span>
+      <span class="k">end</span>
+      <span class="n">say_new_counts</span><span class="p">(</span><span
+class="n">k</span><span class="p">,</span> <span class="n">count</span><span
+class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">say_new_counts</span><span
+class="p">(</span><span class="n">k</span><span class="p">,</span> <span
+class="n">count</span><span class="p">)</span>
+    <span class="k">unless</span> <span class="n">count</span> <span
+class="o">==</span> <span class="mi">0</span>
+      <span class="n">text</span> <span class="o">=</span> <span
+class="n">pluralform</span><span class="p">(</span><span
+class="n">count</span><span class="p">)</span>
+      <span class="n">count</span> <span class="o">=</span> <span
+class="s2">"Одн+о"</span> <span class="k">if</span> <span class="n">count</span>
+<span class="o">==</span> <span class="mi">1</span>
+      <span class="n">all</span> <span class="o">=</span> <span class="s2">"У
+вас </span><span class="si">#{</span><span class="n">count</span><span
+class="si">}</span><span class="s2"> </span><span class="si">#{</span><span
+class="n">text</span><span class="si">}</span><span class="s2">"</span>
+      <span class="n">part</span> <span class="o">=</span> <span
+class="s2">"</span><span class="si">#{</span><span class="n">count</span><span
+class="si">}</span><span class="s2"> </span><span class="si">#{</span><span
+class="n">text</span><span class="si">}</span><span class="s2"> в разделе
+</span><span class="si">#{</span><span class="vi">@labels</span><span
+class="p">[</span><span class="n">k</span><span class="p">]</span><span
+class="si">}</span><span class="s2">"</span>
+
+      <span class="k">if</span> <span class="n">k</span> <span
+class="o">==</span> <span class="s2">"INBOX"</span>
+        <span class="nb">system</span><span class="p">(</span><span
+class="s2">"</span><span class="si">#{</span><span
+class="vi">@festival</span><span class="si">}</span><span class="s2">say.sh
+'</span><span class="si">#{</span><span class="n">all</span><span
+class="si">}</span><span class="s2">'"</span><span class="p">)</span>
+      <span class="k">else</span>
+        <span class="nb">system</span><span class="p">(</span><span
+class="s2">"</span><span class="si">#{</span><span
+class="vi">@festival</span><span class="si">}</span><span class="s2">say.sh
+'</span><span class="si">#{</span><span class="n">part</span><span
+class="si">}</span><span class="s2">'"</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">pluralform</span><span
+class="p">(</span><span class="n">count</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span
+class="n">count</span> <span class="o">%</span> <span class="mi">100</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">n</span>
+<span class="o">%</span> <span class="mi">10</span>
+    <span class="n">msg</span> <span class="o">=</span> <span
+class="p">[</span><span class="s1">'сообщение'</span><span class="p">,</span>
+           <span class="s1">'сообщения'</span><span class="p">,</span>
+           <span class="s1">'сообщений'</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">n</span> <span
+class="o">&gt;</span> <span class="mi">10</span> <span
+class="o">&amp;&amp;</span> <span class="n">n</span> <span class="o">&lt;</span>
+<span class="mi">20</span>
+      <span class="k">return</span> <span class="n">msg</span><span
+class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">elsif</span> <span class="n">m</span> <span
+class="o">&gt;</span> <span class="mi">1</span> <span
+class="o">&amp;&amp;</span> <span class="n">m</span> <span class="o">&lt;</span>
+<span class="mi">5</span>
+      <span class="k">return</span> <span class="n">msg</span><span
+class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">elsif</span> <span class="n">m</span> <span
+class="o">==</span> <span class="mi">1</span>
+      <span class="k">return</span> <span class="n">msg</span><span
+class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span>
+      <span class="k">return</span> <span class="n">msg</span><span
+class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">counts</span> <span class="o">=</span> <span
+class="n">check_letters</span><span class="p">(</span><span
+class="n">gmail</span><span class="p">)</span>
+  <span class="n">old_counts</span> <span class="o">=</span> <span
+class="n">read_counts_letters</span>
+  <span class="n">check_new_counts_letters</span><span class="p">(</span><span
+class="n">counts</span><span class="p">,</span> <span
+class="n">old_counts</span><span class="p">)</span>
+  <span class="n">save_counts_letters</span><span class="p">(</span><span
+class="n">counts</span><span class="p">)</span>
+  <span class="n">gmail</span><span class="p">.</span><span
+class="nf">logout</span>
+
+<span class="k">end</span></code></pre></div>
+
+<h1 id="section-2">Возникшие проблемы</h1>
+
+<ul>
+  <li>При старте системы с задачами в crontab устройство было занято (в ручном
+режиме без проблем);</li>
+  <li>Перепады громкости.</li>
+</ul>
+
+<h1 id="section-3">Переосмысление</h1>
+
+<p><em>Спустя некоторое время, испробовав многие варианты, <br />
+оставил pulseaudio для управления потоками.</em></p>
+
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span
+class="nx">pcm</span><span class="p">.</span><span class="nx">pulse</span> <span
+class="p">{</span>
+ <span class="nx">type</span> <span class="nx">pulse</span>
+<span class="p">}</span>
+
+<span class="nx">ctl</span><span class="p">.</span><span class="nx">pulse</span>
+<span class="p">{</span>
+ <span class="nx">type</span> <span class="nx">pulse</span>
+<span class="p">}</span>
+
+<span class="nx">pcm</span><span class="p">.</span><span class="o">!</span><span
+class="k">default</span> <span class="p">{</span>
+ <span class="nx">type</span> <span class="nx">pulse</span>
+<span class="p">}</span>
+
+<span class="nx">ctl</span><span class="p">.</span><span class="o">!</span><span
+class="k">default</span> <span class="p">{</span>
+ <span class="nx">type</span> <span class="nx">pulse</span>
+<span class="p">}</span></code></pre></div>
+
+<p><em>Переписал bash script`ы на ruby, написав gem fest.</em></p>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span
+class="c1"># coding: utf-8</span>
+<span class="c1">#</span>
+<span class="k">class</span> <span class="nc">Fest</span>
+  <span class="k">def</span> <span class="nf">say</span><span
+class="p">(</span><span class="n">string</span><span class="p">,</span> <span
+class="n">params</span> <span class="o">=</span> <span class="p">{})</span>
+    <span class="n">init</span><span class="p">(</span><span
+class="n">params</span><span class="p">)</span>
+    <span class="n">check_conditions</span>
+    <span class="n">make_wav</span><span class="p">(</span><span
+class="n">string</span><span class="p">)</span>
+    <span class="n">expect_if_paplay_now</span>
+    <span class="n">check_optimal_volume</span>
+    <span class="n">play_wav</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">init</span><span
+class="p">(</span><span class="n">params</span><span class="p">)</span>  <span
+class="c1"># получаем все параметры</span>
+    <span class="vi">@params</span> <span class="o">=</span> <span
+class="n">params</span>
+    <span class="vi">@path</span> <span class="o">=</span> <span
+class="vi">@params</span><span class="p">[</span><span
+class="ss">:path</span><span class="p">]</span> <span class="o">||</span> <span
+class="s1">'/tmp'</span>
+    <span class="vi">@current_volume</span> <span class="o">=</span> <span
+class="sb">`amixer | grep -o '[0-9]*' | sed "5 ! d"`</span><span
+class="p">.</span><span class="nf">to_i</span>
+    <span class="vi">@index</span> <span class="o">=</span> <span class="sb">`ls
+-r </span><span class="si">#{</span><span class="vi">@path</span><span
+class="si">}</span><span class="sb"> | grep -o '[0-9]*' | sed "1 !
+d"`</span><span class="p">.</span><span class="nf">to_i</span>
+    <span class="vi">@min_volume</span> <span class="o">=</span> <span
+class="vi">@params</span><span class="p">[</span><span
+class="ss">:down_volume</span><span class="p">[</span><span
+class="mi">0</span><span class="p">]]</span> <span class="o">||</span> <span
+class="mi">20</span>
+    <span class="vi">@max_volume</span> <span class="o">=</span> <span
+class="vi">@params</span><span class="p">[</span><span
+class="ss">:down_volume</span><span class="p">[</span><span
+class="mi">1</span><span class="p">]]</span> <span class="o">||</span> <span
+class="mi">60</span>
+    <span class="vi">@step</span> <span class="o">=</span> <span
+class="vi">@params</span><span class="p">[</span><span
+class="ss">:down_volume</span><span class="p">[</span><span
+class="mi">2</span><span class="p">]]</span> <span class="o">||</span> <span
+class="mi">4</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">check_optimal_volume</span>  <span
+class="c1"># получаем громкость пониженную</span>
+    <span class="vi">@volume</span> <span class="o">=</span> <span
+class="vi">@current_volume</span> <span class="o">-</span> <span
+class="vi">@current_volume</span> <span class="o">/</span> <span
+class="mi">10</span> <span class="o">*</span> <span class="vi">@step</span>
+    <span class="n">optimize_min_and_max_volume</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">optimize_min_and_max_volume</span>
+    <span class="vi">@optimize_volume</span> <span class="o">=</span> <span
+class="p">(</span>
+    <span class="k">if</span> <span class="vi">@current_volume</span> <span
+class="o">&gt;</span> <span class="vi">@max_volume</span>
+      <span class="vi">@max_volume</span>
+    <span class="k">elsif</span> <span class="vi">@current_volume</span> <span
+class="o">&lt;</span> <span class="vi">@min_volume</span>
+      <span class="vi">@min_volume</span>
+    <span class="k">else</span>
+      <span class="vi">@current_volume</span>
+    <span class="k">end</span>
+    <span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">check_conditions</span> <span
+class="c1"># проверка условий</span>
+    <span class="n">check_light</span>
+    <span class="n">check_home_theater</span>
+    <span class="n">check_say_wav</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">check_light</span> <span
+class="c1"># молчим, если экран потушен</span>
+    <span class="nb">exit</span> <span class="k">if</span> <span
+class="vi">@params</span><span class="p">[</span><span
+class="ss">:backlight</span><span class="p">].</span><span
+class="nf">nil?</span> <span class="o">&amp;&amp;</span> <span
+class="sb">`xbacklight`</span><span class="p">.</span><span
+class="nf">to_i</span> <span class="o">==</span> <span class="mi">0</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">check_home_theater</span> <span
+class="c1"># при просмотре фильмов тоже разумеется</span>
+    <span class="n">xbmc</span> <span class="o">=</span> <span class="sb">`ps
+-el | grep xbmc | wc -l`</span><span class="p">.</span><span
+class="nf">to_i</span>
+    <span class="n">vlc</span> <span class="o">=</span> <span class="sb">`ps -el
+| grep vlc | wc -l`</span><span class="p">.</span><span class="nf">to_i</span>
+    <span class="n">kodi</span> <span class="o">=</span> <span class="sb">`ps
+-el | grep kodi | wc -l`</span><span class="p">.</span><span
+class="nf">to_i</span>
+    <span class="nb">exit</span> <span class="k">if</span> <span
+class="n">xbmc</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="o">||</span> <span class="n">vlc</span> <span class="o">&gt;</span>
+<span class="mi">0</span> <span class="o">||</span> <span class="n">kodi</span>
+<span class="o">&gt;</span> <span class="mi">0</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">check_say_wav</span> <span
+class="c1"># index wav file</span>
+    <span class="vi">@index</span> <span class="o">&gt;</span> <span
+class="mi">0</span> <span class="p">?</span> <span class="vi">@index</span>
+<span class="o">+=</span> <span class="mi">1</span> <span class="p">:</span>
+<span class="vi">@index</span> <span class="o">=</span> <span
+class="mi">1</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">make_wav</span><span
+class="p">(</span><span class="n">string</span><span class="p">)</span> <span
+class="c1"># создаём wav (c mp3 возникли проблемы)</span>
+    <span class="nb">system</span><span class="p">(</span><span class="s2">"echo
+'</span><span class="si">#{</span><span class="n">string</span><span
+class="si">}</span><span class="s2">' | text2wave -o </span><span
+class="si">#{</span><span class="vi">@path</span><span class="si">}</span><span
+class="s2">/say_</span><span class="si">#{</span><span
+class="vi">@index</span><span class="si">}</span><span class="s2">.wav \
+      -eval '(</span><span class="si">#{</span><span
+class="vi">@params</span><span class="p">[</span><span
+class="ss">:language</span><span class="p">]</span> <span class="o">||</span>
+<span class="s1">'voice_msu_ru_nsh_clunits'</span><span class="si">}</span><span
+class="s2">)' \
+      &gt; /dev/null 2&gt;&amp;1"</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">change_volume</span><span
+class="p">(</span><span class="n">volume</span><span class="p">)</span> <span
+class="c1"># ставим громкость</span>
+    <span class="nb">system</span><span class="p">(</span><span
+class="s2">"amixer set Master </span><span class="si">#{</span><span
+class="n">volume</span><span class="si">}</span><span class="s2">% &gt;
+/dev/null 2&gt;&amp;1"</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">expect_if_paplay_now</span> <span
+class="c1"># ожидаем конца сообщения</span>
+    <span class="kp">loop</span> <span class="k">do</span>
+      <span class="k">break</span> <span class="k">if</span> <span
+class="sb">`ps -el | grep paplay | wc -l`</span><span class="p">.</span><span
+class="nf">to_i</span> <span class="o">==</span> <span class="mi">0</span>
+      <span class="nb">sleep</span> <span class="mi">1</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="c1"># получаем текущие источники</span>
+  <span class="c1"># пошагово понижаем громкость</span>
+  <span class="k">def</span> <span class="nf">turn_down_volume</span>
+    <span class="vi">@inputs</span> <span class="o">=</span> <span
+class="sb">`pactl list sink-inputs | grep № | grep -o '[0-9]*'`</span><span
+class="p">.</span><span class="nf">split</span><span class="p">(</span><span
+class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span
+class="p">)</span>
+    <span class="vi">@inputs</span><span class="p">.</span><span
+class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span
+class="n">input</span><span class="o">|</span>
+      <span class="n">volume</span> <span class="o">=</span> <span
+class="vi">@current_volume</span>
+      <span class="kp">loop</span> <span class="k">do</span>
+        <span class="nb">system</span><span class="p">(</span><span
+class="s2">"pactl set-sink-input-volume </span><span class="si">#{</span><span
+class="n">input</span><span class="si">}</span><span class="s2"> '</span><span
+class="si">#{</span><span class="n">volume</span> <span class="o">*</span> <span
+class="mi">655</span><span class="si">}</span><span class="s2">'"</span><span
+class="p">)</span>
+        <span class="n">volume</span> <span class="o">-=</span> <span
+class="vi">@step</span>
+        <span class="k">break</span> <span class="k">if</span> <span
+class="n">volume</span> <span class="o">&lt;</span> <span
+class="vi">@volume</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">play_wav</span> <span class="c1">#
+воспроизводим wav</span>
+    <span class="n">turn_down_volume</span>
+    <span class="nb">system</span><span class="p">(</span><span
+class="s2">"paplay </span><span class="si">#{</span><span
+class="vi">@path</span><span class="si">}</span><span
+class="s2">/say_</span><span class="si">#{</span><span
+class="vi">@index</span><span class="si">}</span><span class="s2">.wav \
+      --volume='</span><span class="si">#{</span><span
+class="vi">@optimize_volume</span> <span class="o">*</span> <span
+class="mi">655</span><span class="si">}</span><span class="s2">' &gt; /dev/null
+2&gt;&amp;1"</span><span class="p">)</span>
+    <span class="n">return_current_volume</span>
+    <span class="n">delete_wav</span>
+  <span class="k">end</span>
+
+  <span class="c1"># пошагово возвращаем громкость</span>
+  <span class="k">def</span> <span class="nf">return_current_volume</span>
+    <span class="vi">@inputs</span><span class="p">.</span><span
+class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span
+class="n">input</span><span class="o">|</span>
+      <span class="n">volume</span> <span class="o">=</span> <span
+class="vi">@volume</span>
+      <span class="kp">loop</span> <span class="k">do</span>
+        <span class="nb">system</span><span class="p">(</span><span
+class="s2">"pactl set-sink-input-volume </span><span class="si">#{</span><span
+class="n">input</span><span class="si">}</span><span class="s2"> '</span><span
+class="si">#{</span><span class="n">volume</span> <span class="o">*</span> <span
+class="mi">655</span><span class="si">}</span><span class="s2">'"</span><span
+class="p">)</span>
+        <span class="n">volume</span> <span class="o">+=</span> <span
+class="vi">@step</span>
+        <span class="k">break</span> <span class="k">if</span> <span
+class="n">volume</span> <span class="o">&gt;</span> <span
+class="vi">@current_volume</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">delete_wav</span> <span
+class="c1"># удаляем wav</span>
+    <span class="nb">system</span><span class="p">(</span><span class="s2">"rm
+-f </span><span class="si">#{</span><span class="vi">@path</span><span
+class="si">}</span><span class="s2">/say_</span><span class="si">#{</span><span
+class="vi">@index</span><span class="si">}</span><span
+class="s2">.wav"</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">pluralform</span><span
+class="p">(</span><span class="n">number</span><span class="p">,</span> <span
+class="n">array</span><span class="p">)</span> <span class="c1">#
+склонение</span>
+    <span class="n">n</span> <span class="o">=</span> <span
+class="n">number</span> <span class="o">%</span> <span class="mi">100</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">n</span>
+<span class="o">%</span> <span class="mi">10</span>
+
+    <span class="k">if</span> <span class="n">n</span> <span
+class="o">&gt;</span> <span class="mi">10</span> <span
+class="o">&amp;&amp;</span> <span class="n">n</span> <span class="o">&lt;</span>
+<span class="mi">20</span>
+      <span class="n">array</span><span class="p">[</span><span
+class="mi">2</span><span class="p">]</span>
+    <span class="k">elsif</span> <span class="n">m</span> <span
+class="o">&gt;</span> <span class="mi">1</span> <span
+class="o">&amp;&amp;</span> <span class="n">m</span> <span class="o">&lt;</span>
+<span class="mi">5</span>
+      <span class="n">array</span><span class="p">[</span><span
+class="mi">1</span><span class="p">]</span>
+    <span class="k">elsif</span> <span class="n">m</span> <span
+class="o">==</span> <span class="mi">1</span>
+      <span class="n">array</span><span class="p">[</span><span
+class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span>
+      <span class="n">array</span><span class="p">[</span><span
+class="mi">2</span><span class="p">]</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></div>
+
+<h1 id="crontab">Crontab</h1>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span
+class="nv">PATH</span><span class="o">=</span><span class="k">$(</span><span
+class="nb">echo</span> <span class="nv">$PATH</span><span class="k">)</span>
+<span class="nv">SHELL</span><span class="o">=</span>/bin/bash
+<span class="nv">GEM_HOME</span><span class="o">=</span><span
+class="k">$(</span>gem environment gemdir<span class="k">)</span>
+<span class="nv">GEM_PATH</span><span class="o">=</span><span
+class="k">$(</span>gem environment gemdir<span class="k">)</span>
+<span class="nv">DISPLAY</span><span class="o">=</span>:0
+<span class="k">*</span>/10 <span class="k">*</span> <span class="k">*</span>
+<span class="k">*</span> <span class="k">*</span> ~/.bin/festival/charge
+<span class="k">*</span>/20 <span class="k">*</span> <span class="k">*</span>
+<span class="k">*</span> <span class="k">*</span> ~/.bin/festival/gmail
+<span class="k">*</span>/30 <span class="k">*</span> <span class="k">*</span>
+<span class="k">*</span> <span class="k">*</span>
+~/.bin/festival/quotes</code></pre></div>
+
+<h1 id="section-4">Результат</h1>
+
+<ul>
+  <li>Стабильная работа в crontab</li>
+  <li>Музыка играет на заднем фоне</li>
+  <li>Плавное понижение громкости и возврат</li>
+  <li>Сообщение играет с текущей громкостью (если в пределах min и max)</li>
+</ul>
+
+<p>Неприятные моменты:</p>
+
+<ul>
+  <li>После просмотра фильмов стоит сбрасывать громкость</li>
+  <li>Иногда озвучка искажается эхом (редко)</li>
+  <li>Нет женского голоса</li>
+</ul>
+
+<h1 id="ps">P.S.</h1>
+
+<p>Все скрипты и gem старых версий …</p>
+
+<p>Ссылки на новые:</p>
+
+<ul>
+  <li><a href="https://github.com/AfsmNGhr/fest">Fest</a></li>
+  <li><a href="https://github.com/AfsmNGhr/fest-scripts">Fest-scripts</a></li>
+</ul>
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"></h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>¤ۣۜDataTrash</li>
+          <li><a href="mailto:afay.zangetsu@gmail.com"
+class='white'>afay.zangetsu@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+
+          <li>
+            <a href="https://github.com/AfsmNGhr">
+              <span class="icon icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282"
+d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">AfsmNGhr</span>
+            </a>
+          </li>
+
+
+
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
