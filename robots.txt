@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://afsmnghr.gihub.io/sitemap.xml
