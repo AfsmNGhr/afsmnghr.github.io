@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-site-verification" content="GdZfeJy-N12vCYzv2nNG8XUaOK70482Wh2CZ0NlrrAI">
+
+  <title>Повеливаем демонами или <br> Настройка mpd</title>
+  <meta name="description" content="Установка">
+  <meta name="robots" content="INDEX,FOLLOW">
+  <meta name="keywords" content="arch,mpd,mpc,flac,ncmpcpp,sxhkdrc">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://afsmnghr.gihub.io/tools/mpd-setting/">
+  <link rel="alternate" type="application/rss+xml" title="DataTrash" href="https://afsmnghr.gihub.io/feed.xml">
+</head>
+
+
+  <body>
+
+    <div class='fixed'>
+  <header class="site-header">
+
+    <div class="wrapper">
+
+      <a class="site-title" href="/">DataTrash</a>
+
+      <nav class="site-nav">
+        <a href="#" class="menu-icon">
+          <svg viewBox="0 0 18 15">
+            <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+            <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+            <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+          </svg>
+        </a>
+
+        <div class="trigger">
+          
+          
+          
+          
+          <a class="page-link" href="/intro/">Intro</a>
+          
+          
+          
+          
+          
+          
+        </div>
+      </nav>
+
+    </div>
+
+  </header>
+</div>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Повеливаем демонами или <br> Настройка mpd</h1>
+    <p class="post-meta"><time datetime="2015-04-12T12:25:00+03:00" itemprop="datePublished">Apr 12, 2015</time> • <span>arch • mpd • mpc • flac • ncmpcpp • sxhkdrc</span> • </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <h1 id="section">Установка</h1>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo pacman -Sy mpd mpc ncmpcpp</code></pre></div>
+
+<h1 id="section-1">Настройка</h1>
+
+<p><em>Config`урируем ~/.config/mpd/mpd.conf</em></p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">bind_to_address <span class="s2">&quot;127.0.0.1&quot;</span>
+port <span class="s2">&quot;6600&quot;</span>
+
+music_directory <span class="s2">&quot;~/Music&quot;</span>
+playlist_directory <span class="s2">&quot;~/.config/mpd/playlists&quot;</span>
+db_file <span class="s2">&quot;~/.config/mpd/db&quot;</span>
+log_file <span class="s2">&quot;~/.config/mpd/log&quot;</span>
+pid_file <span class="s2">&quot;~/.config/mpd/pid&quot;</span>
+state_file <span class="s2">&quot;~/.config/mpd/state&quot;</span>
+
+audio_output <span class="o">{</span>
+<span class="nb">type</span> <span class="s2">&quot;pulse&quot;</span> <span class="c"># or alsa</span>
+name <span class="s2">&quot;MPD pulse&quot;</span>
+mixer_type <span class="s2">&quot;software&quot;</span>
+<span class="o">}</span>
+
+audio_output <span class="o">{</span>
+<span class="nb">type</span>   <span class="s2">&quot;fifo&quot;</span> <span class="c"># for visualization</span>
+name   <span class="s2">&quot;MPD FIFO&quot;</span>
+path   <span class="s2">&quot;/tmp/mpd.fifo&quot;</span>
+format <span class="s2">&quot;44100:16:2&quot;</span>
+<span class="o">}</span></code></pre></div>
+
+<p><em>Настраиваем клиент ~/.ncmpcpp/config</em></p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">mpd_host</span> <span class="o">=</span> localhost
+<span class="nv">mpd_port</span> <span class="o">=</span> 6600
+<span class="nv">mpd_music_dir</span> <span class="o">=</span> ~/Music
+<span class="nv">mpd_crossfade_time</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span>
+
+<span class="nv">ncmpcpp_directory</span> <span class="o">=</span> <span class="s2">&quot;~/.ncmpcpp&quot;</span>
+<span class="nv">lyrics_directory</span> <span class="o">=</span> <span class="s2">&quot;~/.ncmpcpp/lyrics&quot;</span>
+
+<span class="nv">mouse_support</span> <span class="o">=</span> <span class="s2">&quot;yes&quot;</span>
+<span class="nv">mouse_list_scroll_whole_page</span> <span class="o">=</span> <span class="s2">&quot;no&quot;</span>
+<span class="nv">lines_scrolled</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+<span class="nv">autocenter_mode</span> <span class="o">=</span> <span class="s2">&quot;yes&quot;</span>
+<span class="nv">centered_cursor</span> <span class="o">=</span> <span class="s2">&quot;yes&quot;</span>
+<span class="nv">cyclic_scrolling</span> <span class="o">=</span> <span class="s2">&quot;yes&quot;</span>
+<span class="nv">jump_to_now_playing_song_at_start</span> <span class="o">=</span> <span class="s2">&quot;yes&quot;</span>
+
+<span class="nv">song_status_format</span> <span class="o">=</span> <span class="s2">&quot;$7%t$9 $8by$9 $3%a$9&quot;</span>
+<span class="nv">song_list_format</span> <span class="o">=</span> <span class="s2">&quot;{$3 %a $9$1&gt;&gt;$9$7 %t $9$R$3 %n $1&lt;&lt;$9 %l $9}|{$8 %f$9}&quot;</span>
+<span class="nv">now_playing_prefix</span> <span class="o">=</span> <span class="s2">&quot;$b&quot;</span>
+<span class="nv">now_playing_suffix</span> <span class="o">=</span> <span class="s2">&quot;$/b&quot;</span>
+<span class="nv">progressbar_look</span> <span class="o">=</span> <span class="s2">&quot;─╼─&quot;</span>
+
+<span class="nv">playlist_display_mode</span> <span class="o">=</span> classic
+<span class="nv">progressbar_color</span> <span class="o">=</span> red
+<span class="nv">progressbar_elapsed_color</span> <span class="o">=</span> green
+<span class="nv">main_window_color</span> <span class="o">=</span> red
+<span class="nv">main_window_highlight_color</span> <span class="o">=</span> green
+<span class="nv">active_column_color</span> <span class="o">=</span> blue
+
+<span class="nv">visualizer_fifo_path</span> <span class="o">=</span> <span class="s2">&quot;/tmp/mpd.fifo&quot;</span>
+<span class="nv">visualizer_output_name</span> <span class="o">=</span> <span class="s2">&quot;ncmpcpp&quot;</span>
+<span class="nv">visualizer_in_stereo</span> <span class="o">=</span> <span class="s2">&quot;yes&quot;</span>
+<span class="c">#visualizer_sample_multiplier = 10</span>
+<span class="nv">visualizer_sync_interval</span> <span class="o">=</span> 1
+<span class="nv">visualizer_type</span> <span class="o">=</span> wave
+<span class="nv">visualizer_look</span> <span class="o">=</span> <span class="s2">&quot;--&quot;</span></code></pre></div>
+
+<p><em>Добавляем hotkeys, используя ~/.config/sxhkd/sxhkdrc (или любой другой)</em></p>
+
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">XF86AudioNext</span>
+<span class="nx">mpc</span> <span class="nx">next</span> <span class="o">&amp;&amp;</span> <span class="nx">notify</span><span class="o">-</span><span class="nx">send</span> <span class="s2">&quot;     `mpc current`&quot;</span> <span class="o">-</span><span class="nx">t</span> <span class="mi">3</span>
+
+<span class="nx">XF86AudioPrev</span>
+<span class="nx">mpc</span> <span class="nx">prev</span> <span class="o">&amp;&amp;</span> <span class="nx">notify</span><span class="o">-</span><span class="nx">send</span> <span class="s2">&quot;     `mpc current`&quot;</span> <span class="o">-</span><span class="nx">t</span> <span class="mi">3</span>
+
+<span class="nx">XF86AudioPlay</span>
+<span class="nx">mpc</span> <span class="nx">toggle</span> <span class="o">&amp;&amp;</span> <span class="nx">notify</span><span class="o">-</span><span class="nx">send</span> <span class="s2">&quot;     `mpc status`&quot;</span> <span class="o">-</span><span class="nx">t</span> <span class="mi">3</span></code></pre></div>
+
+<h1 id="flac">Flac</h1>
+
+<p><em>MPD проигрывает flac целиком <br />
+ncmpcpp читает cue, но в playlist добавляет flac <br />
+Решение разбиваем flac в соответствии cue</em></p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo pacman -Sy cuetools shntool</code></pre></div>
+
+<p><em>Ниже script разбивает flac и наполняет тегами из cue <br />
+после удаляет текущий flac и cue</em></p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+
+fix <span class="o">()</span> <span class="o">{</span>
+<span class="k">for</span> a in *.flac<span class="p">;</span> <span class="k">do</span>
+<span class="nv">ARTIST</span><span class="o">=</span><span class="sb">`</span>metaflac <span class="s2">&quot;$a&quot;</span> --show-tag<span class="o">=</span>ARTIST <span class="p">|</span> sed s/.*<span class="o">=</span>//g<span class="sb">`</span>
+<span class="nv">TITLE</span><span class="o">=</span><span class="sb">`</span>metaflac <span class="s2">&quot;$a&quot;</span> --show-tag<span class="o">=</span>TITLE <span class="p">|</span> sed s/.*<span class="o">=</span>//g<span class="sb">`</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$ARTIST&quot;</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="o">]</span>
+<span class="k">then</span>
+mv <span class="s2">&quot;$a&quot;</span> <span class="s2">&quot;$TITLE.flac&quot;</span>
+<span class="k">else</span>
+mv <span class="s2">&quot;$a&quot;</span> <span class="s2">&quot;$ARTIST - $TITLE.flac&quot;</span>
+<span class="k">fi</span>
+<span class="k">done</span>
+
+<span class="o">}</span>
+
+reaper <span class="o">()</span> <span class="o">{</span>
+cuebreakpoints *.cue <span class="p">|</span> shnsplit -o flac *.flac
+cuetag.sh *.cue split-track*.flac
+rm <span class="s2">&quot;$(ls *.flac | grep -v &#39;split-track&#39;)&quot;</span>
+rm *.cue
+fix
+
+<span class="o">}</span>
+
+artist <span class="o">()</span> <span class="o">{</span>
+<span class="k">for</span> a in *.flac<span class="p">;</span> <span class="k">do</span>
+metaflac <span class="s2">&quot;$a&quot;</span> --set-tag <span class="nv">ARTIST</span><span class="o">=</span><span class="s2">&quot;$2&quot;</span>
+<span class="k">done</span>
+
+<span class="o">}</span>
+
+<span class="nb">help</span> <span class="o">()</span> <span class="o">{</span>
+<span class="nb">echo</span> <span class="s2">&quot;Usage:&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;      $0&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Main options:&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;    -a  --artist  : set ARTIST for all songs&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;    -f  --fix     : fix songs name ARTIST - TITLE or TITLE&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;    -r  --reaper  : cut flac on tracks and add metatags&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;    -h  --help    : print help and exit&quot;</span>
+
+<span class="o">}</span>
+
+<span class="k">case</span> <span class="nv">$1</span> in
+-a<span class="p">|</span>--artist<span class="o">)</span>  artist     <span class="p">;;</span>
+-r<span class="p">|</span>--reaper<span class="o">)</span>  reaper     <span class="p">;;</span>
+-f<span class="p">|</span>--fix<span class="o">)</span>     fix        <span class="p">;;</span>
+-h<span class="p">|</span>--help<span class="o">)</span>    <span class="nb">help</span>       <span class="p">;;</span>
+*<span class="o">)</span>
+<span class="nb">echo</span> <span class="s2">&quot;&#39;$1&#39; is not valid command&quot;</span>
+<span class="nb">help</span>
+<span class="p">;;</span>
+<span class="k">esac</span>
+
+<span class="nb">exit </span>0</code></pre></div>
+
+<h1 id="section-2">Автоматизация</h1>
+
+<p><em>Toggle mpd</em></p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">mpd <span class="o">()</span> <span class="o">{</span>
+<span class="nv">status</span><span class="o">=</span><span class="k">$(</span>systemctl status mpd --user <span class="p">|</span> awk <span class="s1">&#39;/Active:/{printf $2}&#39;</span><span class="k">)</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$status&quot;</span> <span class="o">==</span> <span class="s1">&#39;active&#39;</span> <span class="o">]</span>
+<span class="k">then</span>
+systemctl stop mpd --user
+<span class="k">else</span>
+systemctl start mpd --user
+<span class="k">fi</span>
+<span class="o">}</span></code></pre></div>
+
+<p><em>Choose playlist</em></p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+
+<span class="nv">status</span><span class="o">=</span><span class="k">$(</span>systemctl status mpd --user <span class="p">|</span> awk <span class="s1">&#39;/Active:/{printf $2}&#39;</span><span class="k">)</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$status&quot;</span> !<span class="o">=</span> <span class="s1">&#39;active&#39;</span> <span class="o">]</span>
+<span class="k">then</span>
+systemctl start mpd --user
+sleep 6
+<span class="k">fi</span>
+
+mpc clear
+
+<span class="k">case</span> <span class="nv">$1</span> in
+g<span class="p">|</span>G<span class="o">)</span> mpc load gothic       <span class="p">;;</span>
+f<span class="p">|</span>F<span class="o">)</span> mpc load futurepop    <span class="p">;;</span>
+n<span class="p">|</span>N<span class="o">)</span> mpc load neoclassical <span class="p">;;</span>
+j<span class="p">|</span>J<span class="o">)</span> mpc load jrock        <span class="p">;;</span>
+*<span class="o">)</span> mpc load neoclassical   <span class="p">;;</span>
+<span class="k">esac</span>
+
+mpc play
+notify-send <span class="s2">&quot;    `mpc current`&quot;</span> -t 3</code></pre></div>
+
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"></h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>DataTrash</li>
+          <li><a href="mailto:afay.zangetsu@gmail.com" class='white'>afay.zangetsu@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/AfsmNGhr" rel='noindex,nofollow'>
+              <span class="icon icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">AfsmNGhr</span>
+            </a>
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
