@@ -172,7 +172,6 @@ mv <span class="s2">&quot;$a&quot;</span> <span class="s2">&quot;$TITLE.flac&quo
 mv <span class="s2">&quot;$a&quot;</span> <span class="s2">&quot;$ARTIST - $TITLE.flac&quot;</span>
 <span class="k">fi</span>
 <span class="k">done</span>
-
 <span class="o">}</span>
 
 reaper <span class="o">()</span> <span class="o">{</span>
@@ -181,14 +180,12 @@ cuetag.sh *.cue split-track*.flac
 rm <span class="s2">&quot;$(ls *.flac | grep -v &#39;split-track&#39;)&quot;</span>
 rm *.cue
 fix
-
 <span class="o">}</span>
 
 artist <span class="o">()</span> <span class="o">{</span>
 <span class="k">for</span> a in *.flac<span class="p">;</span> <span class="k">do</span>
 metaflac <span class="s2">&quot;$a&quot;</span> --set-tag <span class="nv">ARTIST</span><span class="o">=</span><span class="s2">&quot;$2&quot;</span>
 <span class="k">done</span>
-
 <span class="o">}</span>
 
 <span class="nb">help</span> <span class="o">()</span> <span class="o">{</span>
@@ -199,7 +196,6 @@ metaflac <span class="s2">&quot;$a&quot;</span> --set-tag <span class="nv">ARTIS
 <span class="nb">echo</span> <span class="s2">&quot;    -f  --fix     : fix songs name ARTIST - TITLE or TITLE&quot;</span>
 <span class="nb">echo</span> <span class="s2">&quot;    -r  --reaper  : cut flac on tracks and add metatags&quot;</span>
 <span class="nb">echo</span> <span class="s2">&quot;    -h  --help    : print help and exit&quot;</span>
-
 <span class="o">}</span>
 
 <span class="k">case</span> <span class="nv">$1</span> in
