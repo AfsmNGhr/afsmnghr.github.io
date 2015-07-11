@@ -78,7 +78,7 @@ a {
   a.white {
     color: #ccc !important; }
   a:hover {
-    color: #2A7AE2 !important; }
+    color: #2a7ae2 !important; }
 
 /**
  * Blockquotes
@@ -174,7 +174,7 @@ pre {
   margin-bottom: 0;
   float: left; }
   .site-title:hover {
-    color: #2A7AE2 !important; }
+    color: #f78d62 !important; }
 
 .fixed {
   margin-top: -0.2em;
@@ -197,7 +197,7 @@ pre {
     letter-spacing: -1px;
     line-height: 1.5; }
     .site-nav .page-link:hover {
-      color: #2A7AE2 !important; }
+      color: #f78d62 !important; }
     .site-nav .page-link:not(:last-child) {
       margin-right: 20px; }
   @media screen and (max-width: 600px) {
@@ -211,7 +211,7 @@ pre {
       margin-right: 20px;
       text-align: right; }
       .site-nav .page-link {
-        color: #000;
+        color: #211;
         line-height: 1.5; }
       .site-nav .menu-icon {
         display: block;
@@ -249,7 +249,14 @@ pre {
   border-radius: 2px;
   background: #000;
   padding: 30px 0;
-  z-index: 1; }
+  z-index: 1;
+}
+
+.contact-list li a:hover,
+.social-media-list a,
+.social-media-list a:hover {
+  color: #f78d62 !important;
+}
 
 .footer-heading {
   font-size: 18px;
@@ -257,6 +264,7 @@ pre {
 
 .contact-list,
 .social-media-list {
+  color: #f78d62;
   list-style: none;
   margin-left: 0; }
 
@@ -334,6 +342,7 @@ pre {
   margin-bottom: 30px; }
 
 .post-title {
+  color: #211;
   font-size: 42px;
   letter-spacing: -1px;
   line-height: 1; }
