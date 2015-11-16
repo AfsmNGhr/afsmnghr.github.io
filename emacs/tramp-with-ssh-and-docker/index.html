@@ -8,7 +8,7 @@
   <meta name="google-site-verification" content="GdZfeJy-N12vCYzv2nNG8XUaOK70482Wh2CZ0NlrrAI">
 
   <title>Emacs tramp with ssh and docker</title>
-  <meta name="description" content="TRAMPпредоставляет возможность работы с файлами на других компьютерах, как с локальными, по средствам различных протоколов. Рассмотрим некоторые из них …">
+  <meta name="description" content="TRAMPпредоставляет возможность удаленной работы с файлами на различных устройствах, как с локальными, по средствам различных протоколов. Рассмотрим некоторые...">
   <meta name="robots" content="INDEX,FOLLOW">
   <meta name="keywords" content="nix,ssh,tramp,emacs,docker">
 
@@ -68,7 +68,7 @@
 
   <div class="post-content" itemprop="articleBody">
     <p><em><a href="http://www.emacswiki.org/emacs/TrampMode">TRAMP</a></em>
-<em>предоставляет возможность работы с файлами на других компьютерах, <br />
+<em>предоставляет возможность удаленной работы с файлами на различных устройствах, <br />
 как с локальными, по средствам различных протоколов. Рассмотрим некоторые из них …</em></p>
 
 <h1 id="section">Как использовать</h1>
@@ -108,7 +108,8 @@ Host Example
 
 <h1 id="httpwwwemacswikiorgemacstrampmodetoc3">Боремся с <em><a href="http://www.emacswiki.org/emacs/TrampMode#toc3">проблемами</a></em></h1>
 
-<p><em>НЕ может распарсить сроку приветствия –</em>
+<p><em>Ниже перечислены основные проблемы, c которыми я сталкивался … <br />
+НЕ может распарсить сроку приветствия –</em>
 <a href="http://www.emacswiki.org/emacs/TrampMode#toc6">#1</a>, <a href="http://www.emacswiki.org/emacs/TrampMode#toc11">#6</a>, <a href="http://www.emacswiki.org/emacs/TrampMode#toc8">#3</a></p>
 
 <div class="highlight"><pre><code class="language-elisp" data-lang="elisp"><span class="nv">C-x</span> <span class="nv">C-f</span> <span class="nv">/scp::Example/home/user/file</span>
@@ -142,7 +143,8 @@ Host Example
 
 <h1 id="multi-hophttpwwwemacswikiorgemacstrampmodetoc13-syntax"><em><a href="http://www.emacswiki.org/emacs/TrampMode#toc13">Multi-hop</a></em> syntax</h1>
 
-<p><em>Применяем fix #3 и без проблем редактируем с sudo</em></p>
+<p><em>Иногда возникает необходимость поправить файлы с правами root`а, а следом и проблемы … <br />
+Применяем fix #3 и без проблем редактируем с sudo …</em></p>
 
 <div class="highlight"><pre><code class="language-elisp" data-lang="elisp"><span class="nv">C-x</span> <span class="nv">C-f</span> <span class="nv">/ssh:you@remotehost</span><span class="err">|</span><span class="nv">sudo:remotehost:/path/to/file</span> <span class="nv">RET</span>
 
@@ -151,6 +153,10 @@ Host Example
 <span class="c1">;; Tramp hangs #3 on root =&gt; sudo -u root -s -H Password:</span></code></pre></div>
 
 <h1 id="c-sudohttpwwwemacswikiorgemacstrampmodetoc32">Редактируем файл c <em><a href="http://www.emacswiki.org/emacs/TrampMode#toc32">sudo</a></em></h1>
+
+<p><em>Вызываем функцию для read-only файла … <br />
+НЕ забываем завершать tramp сессию от sudo, чтобы не было недоразумений … <br />
+Например: при сохранении *.el =&gt; byte-compile-current-buffer в *.elc c правами root …</em></p>
 
 <div class="highlight"><pre><code class="language-elisp" data-lang="elisp"><span class="p">(</span><span class="nb">defun</span> <span class="nv">sudo-edit-current-file</span> <span class="p">()</span>
   <span class="p">(</span><span class="nv">interactive</span><span class="p">)</span>
@@ -179,9 +185,17 @@ Host Example
                  <span class="p">(</span><span class="nv">tramp-file-name-host</span> <span class="nv">vec</span><span class="p">))))</span>
     <span class="p">(</span><span class="nv">concat</span> <span class="s">&quot;/sudo:root@localhost:&quot;</span> <span class="nv">tempfile</span><span class="p">)))</span></code></pre></div>
 
+<h1 id="bookmarkhttpwwwemacswikiorgemacsbookmarks--tramp">Используем <em><a href="http://www.emacswiki.org/emacs/BookMarks">bookmark`и</a></em> для tramp</h1>
+
+<p><em>Сохраняем в закладки удаленные файлы …</em></p>
+
+<div class="highlight"><pre><code class="language-elisp" data-lang="elisp"><span class="nv">%</span> <span class="nv">Bookmark</span>                      <span class="nv">File</span>
+<span class="mi">1</span> <span class="nv">Example</span>                       <span class="nv">/scpx:Example:/path/file</span></code></pre></div>
+
 <h1 id="dockerhttpwwwemacswikiorgemacstrampanddocker-container">Редактируем файлы в <em><a href="http://www.emacswiki.org/emacs/TrampAndDocker">docker</a></em> container`е</h1>
 
-<p><em>Теперь для разработки не обязательно монтировать папку приложения в container, <br />
+<p><em>Несмотря, что Emacs – старый зверь, ничего новое ему не чуждо … <br />
+Теперь для разработки не обязательно монтировать папку приложения в docker container, <br />
 а просто добавить (или git pull) и результат закоммитить git repositor`ий …</em></p>
 
 <div class="highlight"><pre><code class="language-elisp" data-lang="elisp"><span class="p">(</span><span class="nb">use-package</span> <span class="nv">docker</span>
