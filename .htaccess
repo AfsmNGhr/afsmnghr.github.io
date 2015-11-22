@@ -1,4 +1,5 @@
 ExpiresActive on
+ExpiresDefault "access 7 days"
 ExpiresByType image/gif "access plus 6 months"
 ExpiresByType image/png "access plus 6 months"
 ExpiresByType image/jpeg "access plus 6 months"
