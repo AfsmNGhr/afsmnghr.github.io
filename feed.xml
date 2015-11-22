@@ -1,42 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <title>DataTrash</title>
-    <description>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
-</description>
-    <link>http://yourdomain.com/</link>
-    <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 15 Mar 2015 14:17:34 +0300</pubDate>
-    <lastBuildDate>Sun, 15 Mar 2015 14:17:34 +0300</lastBuildDate>
-    <generator>Jekyll v3.0.0.beta2</generator>
-
-      <item>
-        <title>Welcome to Jekyll!</title>
-        <description>&lt;p&gt;You’ll find this post in your &lt;code&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
-
-&lt;p&gt;To add new posts, simply add a file in the &lt;code&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
-
-&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;z&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;Tom&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints &#39;Hi, Tom&#39; to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://github.com/jekyll/jekyll-help&quot;&gt;Jekyll’s dedicated Help repository&lt;/a&gt;.&lt;/p&gt;
+    <title></title>
+    <description>DataTrash - afsmnghr geek blog</description>
+    <link>https://afsmnghr.gihub.io</link>
+    <atom:link href="https://afsmnghr.gihub.io/feed.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Emacs tramp with ssh and docker</title>
+      
+      
+      <description>&lt;p&gt;&lt;em&gt;&lt;a href=&quot;http://www.emacswiki.org/emacs/TrampMode&quot;&gt;TRAMP&lt;/a&gt;&lt;/em&gt;
+&lt;em&gt;предоставляет возможность удаленной работы с файлами на различных устройствах, &lt;br /&gt;
+как с локальными, по средствам различных протоколов. Рассмотрим некоторые из них …&lt;/em&gt;&lt;/p&gt;
 
 </description>
-        <pubDate>Sun, 15 Mar 2015 17:17:14 +0300</pubDate>
-        <link>http://yourdomain.com/jekyll/update/2015/03/15/welcome-to-jekyll.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/jekyll/update/2015/03/15/welcome-to-jekyll.html</guid>
+      
+      <pubDate>Sun, 15 Nov 2015 20:14:00 +0300</pubDate>
+      <link>https://afsmnghr.gihub.io/emacs/tramp-with-ssh-and-docker/</link>
+      <guid isPermaLink="true">https://afsmnghr.gihub.io/emacs/tramp-with-ssh-and-docker/</guid>
+    </item>
+    
+    <item>
+      <title>Transmission advanced settings</title>
+      
+      
+      <description>&lt;p&gt;&lt;em&gt;В погоне за минимализмом …&lt;/em&gt; &lt;br /&gt;
+&lt;em&gt;Решил заменить transmission-gtk на daemon …&lt;/em&gt;&lt;/p&gt;
 
+</description>
+      
+      <pubDate>Sat, 11 Jul 2015 21:55:00 +0300</pubDate>
+      <link>https://afsmnghr.gihub.io/tools/transmission-advanced-settings/</link>
+      <guid isPermaLink="true">https://afsmnghr.gihub.io/tools/transmission-advanced-settings/</guid>
+    </item>
+    
+    <item>
+      <title>Pulseaudio system-wide daemon</title>
+      
+      
+      <description>&lt;p&gt;&lt;em&gt;Продолжаю свои эксперименты с pulseaudio …&lt;/em&gt; &lt;br /&gt;
+&lt;em&gt;Цель запустить голосовое сообщение от другого пользователя …&lt;/em&gt;&lt;/p&gt;
 
-        <category>jekyll</category>
+</description>
+      
+      <pubDate>Sat, 11 Jul 2015 20:53:00 +0300</pubDate>
+      <link>https://afsmnghr.gihub.io/tools/pulseaudio-system-wide-daemon/</link>
+      <guid isPermaLink="true">https://afsmnghr.gihub.io/tools/pulseaudio-system-wide-daemon/</guid>
+    </item>
+    
+    <item>
+      <title>Rails Project with Multiple Databases</title>
+      
+      
+      <description>&lt;p&gt;&lt;em&gt;Потребовалось для проекта &lt;a href=&quot;https://freefreight.biz&quot;&gt;Free Freight&lt;/a&gt; очищать не актуальные позиции.&lt;/em&gt;&lt;br /&gt;
+&lt;em&gt;Решено было сделать базу archive, доступную из rails enviroment …&lt;/em&gt; &lt;br /&gt;&lt;/p&gt;
 
-        <category>update</category>
+</description>
+      
+      <pubDate>Sat, 16 May 2015 19:49:00 +0300</pubDate>
+      <link>https://afsmnghr.gihub.io/rails/multiple-databases/</link>
+      <guid isPermaLink="true">https://afsmnghr.gihub.io/rails/multiple-databases/</guid>
+    </item>
+    
+    <item>
+      <title>Повеливаем демонами или &lt;br&gt; Настройка mpd</title>
+      
+      
+      <description>&lt;h1 id=&quot;section&quot;&gt;Установка&lt;/h1&gt;
 
-      </item>
+</description>
+      
+      <pubDate>Sun, 12 Apr 2015 12:25:00 +0300</pubDate>
+      <link>https://afsmnghr.gihub.io/tools/mpd-setting/</link>
+      <guid isPermaLink="true">https://afsmnghr.gihub.io/tools/mpd-setting/</guid>
+    </item>
+    
+    <item>
+      <title>Трансформация пингвина или &lt;br&gt; Switch Manjaro on Arch</title>
+      
+      
+      <description>&lt;p&gt;&lt;em&gt;Туториал, для тех поставил manjaro,&lt;br /&gt;
+по тем или иным причинам,&lt;br /&gt;
+но всё же хочет перейти на arch … &lt;br /&gt;
+И так переход без переустановки…&lt;br /&gt;&lt;/em&gt;&lt;/p&gt;
 
+</description>
+      
+      <pubDate>Mon, 23 Mar 2015 16:46:00 +0300</pubDate>
+      <link>https://afsmnghr.gihub.io/arch/transform_penguin/</link>
+      <guid isPermaLink="true">https://afsmnghr.gihub.io/arch/transform_penguin/</guid>
+    </item>
+    
+    <item>
+      <title>Говорящий пингвин или &lt;br&gt; Синтез речи с festival</title>
+      
+      
+      <description>&lt;p&gt;На бескрайних просторах интернета немало статей про умные дома, очки дополненной реальности,
+новомодный «интернет вещей» и другие преспективы вообразимого будущего. &lt;br /&gt;
+Будет ли оно светлым или в «добрых» традициях нуарного киберпанка, время покажет, &lt;br /&gt;
+а пока мы сделаем маленький шаг навстречу ему.&lt;/p&gt;
+
+</description>
+      
+      <pubDate>Sun, 22 Feb 2015 19:51:00 +0300</pubDate>
+      <link>https://afsmnghr.gihub.io/festival/speaking-penguin/</link>
+      <guid isPermaLink="true">https://afsmnghr.gihub.io/festival/speaking-penguin/</guid>
+    </item>
+    
   </channel>
 </rss>
