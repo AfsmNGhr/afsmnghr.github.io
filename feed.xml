@@ -7,6 +7,19 @@
     <atom:link href="https://afsmnghr.gihub.io/feed.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Docker for rails dev</title>
+      
+      
+      <description>&lt;h1 id=&quot;workflow&quot;&gt;Workflow&lt;/h1&gt;
+
+</description>
+      
+      <pubDate>Sun, 14 Feb 2016 19:00:00 +0300</pubDate>
+      <link>https://afsmnghr.gihub.io/docker/rails-dev/</link>
+      <guid isPermaLink="true">https://afsmnghr.gihub.io/docker/rails-dev/</guid>
+    </item>
+    
+    <item>
       <title>Emacs tramp with ssh and docker</title>
       
       
