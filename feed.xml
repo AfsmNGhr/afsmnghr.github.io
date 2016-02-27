@@ -7,16 +7,17 @@
     <atom:link href="https://afsmnghr.gihub.io/feed.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Docker for rails dev</title>
+      <title>Docker-compose switch to version 2</title>
       
       
-      <description>&lt;h1 id=&quot;workflow&quot;&gt;Workflow&lt;/h1&gt;
+      <description>&lt;p&gt;Совсем недавно, после выхода &lt;em&gt;Compose 1.6.0+&lt;/em&gt; и &lt;em&gt;Docker 1.10.0+&lt;/em&gt;, стала доступна &lt;em&gt;&lt;a href=&quot;https://github.com/docker/compose/blob/master/docs/compose-file.md#version-2&quot;&gt;2 версия&lt;/a&gt;&lt;/em&gt;.&lt;br /&gt;
+Добавлены ключи: &lt;em&gt;&lt;a href=&quot;https://github.com/docker/compose/blob/master/docs/compose-file.md#service-configuration-reference&quot;&gt;services&lt;/a&gt;&lt;/em&gt;, &lt;em&gt;&lt;a href=&quot;https://github.com/docker/compose/blob/master/docs/compose-file.md#volume-configuration-reference&quot;&gt;volumes&lt;/a&gt;&lt;/em&gt;, &lt;em&gt;&lt;a href=&quot;https://github.com/docker/compose/blob/master/docs/compose-file.md#network-configuration-reference&quot;&gt;networks&lt;/a&gt;&lt;/em&gt;. Будут удалены ключи: &lt;em&gt;&lt;a href=&quot;https://github.com/docker/compose/blob/master/docs/link-env-deprecated.md&quot;&gt;links&lt;/a&gt;&lt;/em&gt;. &lt;br /&gt;&lt;/p&gt;
 
 </description>
       
-      <pubDate>Sun, 14 Feb 2016 19:00:00 +0300</pubDate>
-      <link>https://afsmnghr.gihub.io/docker/rails-dev/</link>
-      <guid isPermaLink="true">https://afsmnghr.gihub.io/docker/rails-dev/</guid>
+      <pubDate>Sat, 27 Feb 2016 21:27:00 +0300</pubDate>
+      <link>https://afsmnghr.gihub.io/docker/docker-compose-switch-to-version-2</link>
+      <guid isPermaLink="true">https://afsmnghr.gihub.io/docker/docker-compose-switch-to-version-2</guid>
     </item>
     
     <item>
