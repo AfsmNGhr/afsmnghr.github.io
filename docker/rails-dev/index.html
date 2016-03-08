@@ -1,0 +1,170 @@
+<!DOCTYPE html> <html> <head> <meta charset="utf-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1"> <meta name="google-site-verification" content="GdZfeJy-N12vCYzv2nNG8XUaOK70482Wh2CZ0NlrrAI"> <title>Docker for rails dev</title> <meta name="description" content="Делаем rails разработку с docker`ом ещё удобнee."> <meta name="robots" content="INDEX,FOLLOW"> <meta name="keywords" content="docker,rails,web,dev,nix"> <link rel="stylesheet" href="/css/main.css"> <link rel="canonical" href="https://afsmnghr.gihub.io/docker/rails-dev/"> <link rel="alternate" type="application/rss+xml" title="DataTrash" href="https://afsmnghr.gihub.io/feed.xml"> </head> <body> <div class='fixed'> <header class="site-header"> <div class="wrapper"> <a class="site-title" href="/">DataTrash</a> <nav class="site-nav"> <a href="#" class="menu-icon"> <svg viewBox="0 0 18 15"> <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/> <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/> <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/> </svg> </a> <div class="trigger"> </div> </nav> </div> </header> </div> <div class="page-content"> <div class="wrapper"> <article class="post" itemscope itemtype="http://schema.org/BlogPosting"> <header class="post-header"> <h1 class="post-title" itemprop="name headline">Docker for rails dev</h1> <p class="post-meta"><time datetime="2016-03-07T19:00:00+03:00" itemprop="datePublished">Mar 7, 2016</time> • <span>docker • rails • web • dev • nix</span> • </p> </header> <div class="post-content" itemprop="articleBody"> <p><em>Делаем rails разработку с docker`ом ещё удобнee.</em></p> <div id="packages"></div> <h1 id="workflow">Workflow</h1> <ul> <li>Этапы развертывания: <ul> <li>Клонирование проекта на dev машину (Git or another CVS) <br/></li> <li>Создание Dockerfile и docker-compose.yml <br/></li> <li>Настройка database.yml и secrets.yml <br/></li> <li>Запуск (docker-compose up)</li> </ul> </li> <li>Кеширование: <ul> <li><a href="#packages">Пакеты</a> с <a href="https://github.com/extellisys/docker-image-apt-cacher-ng" rel="noindex,nofollow">Apt-Cacher-NG</a></li> <li><a href="#images">Образы</a> для разных типов приложений</li> <li><a href="#gems">Gems</a> с bundle в vendor/bundle</li> <li><a href="#bash">Bash</a> команд в .bash_history</li> <li><a href="#irb">Irb</a> команд в .irb_history</li> </ul> </li> </ul> <h1 id="section">Кешируем пакеты</h1> <p><em>При добавлении пакетов, используем <a href="https://github.com/extellisys/docker-image-apt-cacher-ng" rel="noindex,nofollow">Apt-Cacher-NG</a>, ускоряем последующие билды. <br/> Делаем минимальное окружение, не плодим кол-во слоёв …</em></p> <div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># ~/.bash_aliases</span>
+
+Apt-cacher <span class="o">()</span> <span class="o">{</span>
+  <span class="nv">container</span><span class="o">=</span><span class="k">$(</span>docker ps <span class="p">|</span> grep apts <span class="p">|</span> wc -l<span class="k">)</span>
+  <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$container&quot;</span> <span class="o">==</span> <span class="m">1</span> <span class="o">]</span>
+  <span class="k">then</span>
+    docker rm -f apts
+  <span class="k">else</span>
+    docker run --name apts -d -p 3142:3142 <span class="se">\</span>
+    -v /var/cache/apt_cacher:/var/cache/apt-cacher-ng <span class="se">\</span>
+    extellisys/apt-cacher-ng:latest
+  <span class="k">fi</span>
+<span class="o">}</span>
+
+<span class="c"># Dockerfile</span>
+
+FROM polleverywhere/ruby:2.2.0
+MAINTAINER Alexsey Ermolaev <span class="s1">&#39;afay.zangetsu@gmail.com&#39;</span>
+
+RUN <span class="nb">echo</span> <span class="s1">&#39;Acquire::http { Proxy &quot;http://172.17.0.1:3142&quot;; };&#39;</span> &gt;&gt; <span class="se">\</span>
+      /etc/apt/apt.conf.d/01proxy <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> apt-get update -qq <span class="o">&amp;&amp;</span> <span class="nb">export </span><span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> apt-get install -qqy build-essential libpq-dev nodejs <span class="se">\</span>
+       imagemagick --no-install-recommends <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> apt-get clean <span class="o">&amp;&amp;</span> rm -rf /tmp/* /var/tmp/* /etc/apt/apt.conf.d/01proxy <span class="se">\</span>
+       /var/lib/apt/lists/* /var/cache/apt/ /var/log/* <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> adduser web --home /home/web --shell /bin/bash <span class="se">\</span>
+       --disabled-password --gecos <span class="s1">&#39;&#39;</span> <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> chown -R web:web /home/web /usr/local/lib/ruby /usr/local/bin
+
+...</code></pre></div> <div id="images"></div> <p><em>Пакеты устанавливаются чуть быстрее, но подождать придётся …</em></p> <h1 id="section-1">Создаём образы</h1> <p><em>Для ещё большого ускорения создаём образы и наследуемся от них …</em></p> <div class="highlight"><pre><code class="language-bash" data-lang="bash">docker build -t afsmnghr/rails-pg:2.2.0 .
+
+<span class="c"># Dockerfile</span>
+
+FROM polleverywhere/ruby:2.2.0
+MAINTAINER Alexsey Ermolaev <span class="s1">&#39;afay.zangetsu@gmail.com&#39;</span>
+
+RUN <span class="nb">echo</span> <span class="s1">&#39;Acquire::http { Proxy &quot;http://172.17.0.1:3142&quot;; };&#39;</span> <span class="se">\</span>
+    &gt;&gt; /etc/apt/apt.conf.d/01proxy <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> apt-get update -qq <span class="o">&amp;&amp;</span> <span class="nb">export </span><span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> apt-get install -qqy build-essential libpq-dev nodejs imagemagick <span class="se">\</span>
+       --no-install-recommends <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> apt-get clean <span class="o">&amp;&amp;</span> rm -rf /tmp/* /var/tmp/* /etc/apt/apt.conf.d/01proxy <span class="se">\</span>
+       /var/lib/apt/lists/* /var/cache/apt/ /var/log/* <span class="se">\</span>
+       <span class="o">&amp;&amp;</span> adduser web --home /home/web --shell /bin/bash <span class="se">\</span>
+       --disabled-password --gecos <span class="s1">&#39;&#39;</span> <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> chown -R web:web /home/web /usr/local/lib/ruby /usr/local/bin
+
+USER web
+WORKDIR /home/web
+
+<span class="c"># Dockerfile</span>
+
+FROM afsmnghr/rails-pg:2.2.0
+
+EXPOSE 3000
+CMD rm -rf tmp log <span class="o">&amp;&amp;</span> <span class="o">(</span>bundle check <span class="se">\</span>
+    <span class="o">||</span> bundle install --path vendor/bundle --jobs <span class="m">20</span> --retry 5<span class="o">)</span> <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> rake db:migrate <span class="o">&amp;&amp;</span> mkdir -p tmp/pids <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> bundle <span class="nb">exec </span>bin/delayed_job start <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> bundle <span class="nb">exec </span>rails s -b 0.0.0.0</code></pre></div> <div id="gems"></div> <p>Примечание:</p> <ul> <li><em>Только свежие логи</em></li> <li><em>Удаляем <strong>tmp</strong> вместе с <strong>server.pid</strong> (экстренная остановка)</em></li> <li><em>Для <strong>Delayed Job</strong> создаём <strong>tmp/pids</strong> (иначе не запустится)</em></li> </ul> <div id="bash"></div> <h1 id="section-2">Кешируем гемы</h1> <p><em>Гемы выносим из билда образа, чтобы не пересобирать образ из-за одного гема, устанавливаем в <strong>vendor/bundle</strong> и монтируем при старте (см. выше)</em></p> <h1 id="bash">Сохраняем историю bash</h1> <p><em>Докер по умолчанию не пишет историю. Создаём <strong>~/.bashrc</strong> для web пользователя … <br/> Монтируем проект в <strong>/home/web</strong>, так история будет хранится в корне проекта … <br/> Добавляем в <strong>.gitignore</strong> ( .bash*, .irb*)</em></p> <div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># ~/.bashrc</span>
+
+<span class="nv">PROMPT_COMMAND</span><span class="o">=</span><span class="s2">&quot;history -a&quot;</span>
+<span class="nv">HISTFILE</span><span class="o">=</span><span class="nv">$HOME</span>/.bash_history
+
+<span class="nb">set</span> -o emacs
+
+<span class="nb">shopt</span> -s autocd
+<span class="nb">shopt</span> -s cdspell
+<span class="nb">shopt</span> -s globstar
+<span class="nb">shopt</span> -s checkwinsize
+<span class="nb">shopt</span> -s cmdhist
+<span class="nb">shopt</span> -s dotglob
+<span class="nb">shopt</span> -s expand_aliases
+<span class="nb">shopt</span> -s extglob
+<span class="nb">shopt</span> -s histappend
+<span class="nb">shopt</span> -s hostcomplete
+<span class="nb">shopt</span> -s nocaseglob
+
+<span class="nb">export </span><span class="nv">HISTTIMEFORMAT</span><span class="o">=</span><span class="s1">&#39;%F %T &#39;</span>
+<span class="nb">export </span><span class="nv">HISTSIZE</span><span class="o">=</span>10000
+<span class="nb">export </span><span class="nv">HISTFILESIZE</span><span class="o">=</span><span class="k">${</span><span class="nv">HISTSIZE</span><span class="k">}</span>
+<span class="nb">export </span><span class="nv">HISTCONTROL</span><span class="o">=</span>ignoreboth
+<span class="nb">export </span><span class="nv">HISTIGNORE</span><span class="o">=</span><span class="s2">&quot;:#[0-9]*:&amp;:ls:[bf]g:exit:[ ]*:ssh:history&quot;</span></code></pre></div> <div id="irb"></div> <h1 id="rails-">Сохраняем историю rails консоли</h1> <p><em>Повторяем по аналогии с bash`ем …</em></p> <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># ~/.irbrc</span>
+
+<span class="nb">require</span> <span class="s1">&#39;irb/ext/save-history&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;irb/completion&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;awesome_print&#39;</span>
+<span class="no">AwesomePrint</span><span class="o">.</span><span class="n">irb!</span>
+
+<span class="no">IRB</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="ss">:PROMPT_MODE</span><span class="o">]</span> <span class="o">=</span> <span class="ss">:SIMPLE</span>
+<span class="no">IRB</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="ss">:SAVE_HISTORY</span><span class="o">]</span> <span class="o">=</span> <span class="mi">10_000</span>
+<span class="no">IRB</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="ss">:HISTORY_FILE</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;HOME&#39;</span><span class="o">]</span><span class="si">}</span><span class="s2">/.irb-history&quot;</span>
+<span class="no">IRB</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="ss">:AUTO_INDENT</span><span class="o">]</span> <span class="o">=</span> <span class="kp">true</span>
+<span class="no">IRB</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="ss">:USE_READLINE</span><span class="o">]</span> <span class="o">=</span> <span class="kp">true</span>
+
+<span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">eager_load!</span> <span class="k">if</span> <span class="no">ENV</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="s1">&#39;RAILS_ENV&#39;</span><span class="p">)</span></code></pre></div> <h1 id="docker-">Работаем в docker контейнере</h1> <div class="highlight"><pre><code class="language-bash" data-lang="bash">docker <span class="nb">exec</span> -it <span class="k">$(</span>docker-compose ps <span class="p">|</span> awk <span class="s1">&#39;/app/{printf $1}&#39;</span><span class="k">)</span> <span class="se">\</span>
+  /bin/bash <span class="c"># или сразу bin/bundle exec rails c</span></code></pre></div> <h1 id="section-3">Немного автоматизации</h1> <p><em>Пишем скрипт для старта и создания веток …</em></p> <div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># ~/.bash_aliases</span>
+<span class="nb">alias </span><span class="nv">rails</span><span class="o">=</span><span class="s2">&quot;~/.bin/app/rails&quot;</span>
+
+<span class="c"># ~/.bin/app/rails</span>
+<span class="c">#!/bin/bash</span>
+
+branch <span class="o">()</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">[[</span> <span class="nv">$1</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+        git checkout -f master <span class="o">||</span> git checkout -fb master
+        git pull origin master
+        git checkout <span class="s2">&quot;$1&quot;</span> <span class="o">||</span> git checkout -b <span class="s2">&quot;$1&quot;</span>
+        git pull origin -f <span class="s2">&quot;$1&quot;</span> <span class="o">||</span> <span class="nb">echo</span> <span class="s1">&#39;remote branch not found&#39;</span>
+        up
+    <span class="k">fi</span>
+<span class="o">}</span>
+
+up <span class="o">()</span> <span class="o">{</span>
+    init <span class="o">&amp;&amp;</span> <span class="nb">time </span>docker-compose build app db
+    docker-compose up
+<span class="o">}</span>
+
+init <span class="o">()</span> <span class="o">{</span>
+    <span class="nv">status</span><span class="o">=</span><span class="k">$(</span>systemctl status docker <span class="p">|</span> awk <span class="s1">&#39;/Active:/{printf $2}&#39;</span><span class="k">)</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$status&quot;</span> !<span class="o">=</span> <span class="s1">&#39;active&#39;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        sudo systemctl start docker
+    <span class="k">fi</span>
+<span class="o">}</span>
+
+container <span class="o">()</span> <span class="o">{</span>
+    docker <span class="nb">exec</span> -it <span class="k">$(</span>docker-compose ps <span class="p">|</span> awk <span class="s1">&#39;/app/{printf $1}&#39;</span><span class="k">)</span> /bin/bash
+<span class="o">}</span>
+
+<span class="nb">help</span> <span class="o">()</span> <span class="o">{</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Usage:&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;      $0&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Main options:&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;    s  up         : project up&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;    b  branch     : change branch&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;    c  console    : container exec -it /bin/bash&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot;    h  help       : print help and exit&quot;</span>
+<span class="o">}</span>
+
+<span class="k">case</span> <span class="nv">$1</span> in
+    s<span class="p">|</span>up<span class="o">)</span>        up                        <span class="p">;;</span>
+    b<span class="p">|</span>branch<span class="o">)</span>    branch <span class="nv">$2</span>                 <span class="p">;;</span>
+    c<span class="p">|</span>container<span class="o">)</span> container                 <span class="p">;;</span>
+    h<span class="p">|</span><span class="nb">help</span><span class="o">)</span>      <span class="nb">help</span>                      <span class="p">;;</span>
+    *<span class="o">)</span>
+        <span class="nb">echo</span> <span class="s2">&quot;&#39;$1&#39; is not valid command&quot;</span>
+        <span class="nb">help</span>
+        <span class="p">;;</span>
+<span class="k">esac</span>
+
+<span class="nb">exit </span>0</code></pre></div> <p><em>Приятной разработки …</em></p> </div> <div id="disqus_thread"> <ul id="dsq-comments"> </ul> </div> <div id="disqus_thread"></div> <script type="text/javascript">
+    var disqus_shortname = 'AfsmNGhr';
+    var disqus_identifier = "/docker/rails-dev/";
+
+    (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+
+    })();
+  </script> <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> </article> </div> </div> <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)
+  },i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-74406905-1', 'auto');
+  ga('send', 'pageview');
+</script> </body> </html>
