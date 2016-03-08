@@ -20,6 +20,7 @@ a.white{color:#ccc !important;}
 a:hover{color:#2a7ae2 !important;}
 blockquote{color:#828282;border-left:4px solid #e8e8e8;padding-left:15px;font-size:18px;letter-spacing:-1px;font-style:italic;}
 blockquote >:last-child{margin-bottom:0;}
+strong{font-weight:bold;}
 pre,
 code{font-size:15px;border-radius:5px;background-color:#002b36;}
 code{padding:1px 5px;}
