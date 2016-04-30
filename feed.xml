@@ -7,6 +7,19 @@
     <atom:link href="https://afsmnghr.gihub.io/feed.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Emacs with Angular JS</title>
+      
+      
+      <description>&lt;h1 id=&quot;configuring-emacs-for-javascript&quot;&gt;&lt;em&gt;Configuring emacs for javascript&lt;/em&gt;&lt;/h1&gt;
+
+</description>
+      
+      <pubDate>Sat, 30 Apr 2016 20:07:00 +0300</pubDate>
+      <link>https://afsmnghr.gihub.io/emacs/angular/</link>
+      <guid isPermaLink="true">https://afsmnghr.gihub.io/emacs/angular/</guid>
+    </item>
+    
+    <item>
       <title>Docker for rails dev</title>
       
       
