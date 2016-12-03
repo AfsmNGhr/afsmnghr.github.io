@@ -7,6 +7,19 @@
     <atom:link href="https://afsmnghr.gihub.io/feed.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Check offline in Angular with interceptor</title>
+      
+      
+      <description>&lt;p&gt;&lt;em&gt;Sometimes, the user goes offline after he already landed on your AngularJS site, the back-end API’s won’t be accessible any more but all the client-side stuff will still remain loaded if the user does not refresh the page. He might not understand what actually happened, that is why need alert it.&lt;/em&gt;&lt;/p&gt;
+
+</description>
+      
+      <pubDate>Wed, 30 Nov 2016 22:09:00 +0300</pubDate>
+      <link>https://afsmnghr.gihub.io/angular/check_offline_with_interceptor/</link>
+      <guid isPermaLink="true">https://afsmnghr.gihub.io/angular/check_offline_with_interceptor/</guid>
+    </item>
+    
+    <item>
       <title>Emacs with Angular JS</title>
       
       
@@ -107,7 +120,7 @@
       <title>Повеливаем демонами или &lt;br&gt; Настройка mpd</title>
       
       
-      <description>&lt;h1 id=&quot;section&quot;&gt;Установка&lt;/h1&gt;
+      <description>&lt;h1 id=&quot;Установка&quot;&gt;Установка&lt;/h1&gt;
 
 </description>
       
@@ -130,22 +143,6 @@
       <pubDate>Mon, 23 Mar 2015 16:46:00 +0300</pubDate>
       <link>https://afsmnghr.gihub.io/arch/transform_penguin/</link>
       <guid isPermaLink="true">https://afsmnghr.gihub.io/arch/transform_penguin/</guid>
-    </item>
-    
-    <item>
-      <title>Говорящий пингвин или &lt;br&gt; Синтез речи с festival</title>
-      
-      
-      <description>&lt;p&gt;На бескрайних просторах интернета немало статей про умные дома, очки дополненной реальности,
-новомодный «интернет вещей» и другие преспективы вообразимого будущего. &lt;br /&gt;
-Будет ли оно светлым или в «добрых» традициях нуарного киберпанка, время покажет, &lt;br /&gt;
-а пока мы сделаем маленький шаг навстречу ему.&lt;/p&gt;
-
-</description>
-      
-      <pubDate>Sun, 22 Feb 2015 19:51:00 +0300</pubDate>
-      <link>https://afsmnghr.gihub.io/festival/speaking-penguin/</link>
-      <guid isPermaLink="true">https://afsmnghr.gihub.io/festival/speaking-penguin/</guid>
     </item>
     
   </channel>
