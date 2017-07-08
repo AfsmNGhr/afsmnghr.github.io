@@ -1,0 +1,83 @@
+<!DOCTYPE html> <html> <head> <meta charset="utf-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1"> <meta name="google-site-verification" content="GdZfeJy-N12vCYzv2nNG8XUaOK70482Wh2CZ0NlrrAI"> <title>Docker-compose switch to version 2</title> <meta name="description" content="Совсем недавно, после выхода Compose 1.6.0+ и Docker 1.10.0+, стала доступна 2 версия.Добавлены ключи: services, volumes, networks. Будут удалены ключи: links. "> <meta name="robots" content="INDEX,FOLLOW"> <meta name="keywords" content="docker-compose,docker,nix"> <link rel="stylesheet" href="/css/main.css"> <link rel="canonical" href="https://afsmnghr.gihub.io/docker/docker-compose-switch-to-version-2"> <link rel="alternate" type="application/rss+xml" title="DataTrash" href="https://afsmnghr.gihub.io/feed.xml"> </head> <body> <div class='fixed'> <header class="site-header"> <div class="wrapper"> <a class="site-title" href="/">DataTrash</a> <nav class="site-nav"> <a href="#" class="menu-icon"> <svg viewBox="0 0 18 15"> <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/> <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/> <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/> </svg> </a> <div class="trigger"> </div> </nav> </div> </header> </div> <div class="page-content"> <div class="wrapper"> <article class="post" itemscope itemtype="http://schema.org/BlogPosting"> <header class="post-header"> <h1 class="post-title" itemprop="name headline">Docker-compose switch to version 2</h1> <p class="post-meta"><time datetime="2016-02-27T21:27:00+03:00" itemprop="datePublished">Feb 27, 2016</time> • <span>docker-compose • docker • nix</span> • </p> </header> <div class="post-content" itemprop="articleBody"> <p>Совсем недавно, после выхода <em>Compose 1.6.0+</em> и <em>Docker 1.10.0+</em>, стала доступна <em><a href="https://github.com/docker/compose/blob/master/docs/compose-file.md#version-2">2 версия</a></em>.<br/> Добавлены ключи: <em><a href="https://github.com/docker/compose/blob/master/docs/compose-file.md#service-configuration-reference">services</a></em>, <em><a href="https://github.com/docker/compose/blob/master/docs/compose-file.md#volume-configuration-reference">volumes</a></em>, <em><a href="https://github.com/docker/compose/blob/master/docs/compose-file.md#network-configuration-reference">networks</a></em>. Будут удалены ключи: <em><a href="https://github.com/docker/compose/blob/master/docs/link-env-deprecated.md">links</a></em>. <br/></p> <h1 id="version-1">Version 1</h1> <figure class="highlight"><pre><code class="language-bash" data-lang="bash">app:
+  build: .
+  ports:
+    - <span class="s1">'3000:3000'</span>
+  volumes:
+    - .:/home/web
+  links:
+    - db
+db:
+  image: sameersbn/postgresql
+  ports:
+    - <span class="s1">'5432'</span>
+  volumes_from:
+    - db_data
+  env_file:
+    - <span class="nv">$HOME</span>/.docker/<span class="nv">$APP</span>/db.env
+db_data:
+  image: tianon/true
+  volumes:
+    - /var/lib/postgresql</code></pre></figure> <h1 id="version-2-fallback-mode">Version 2 (<em>fallback mode</em>)</h1> <p>Пока <em><a href="https://github.com/docker/compose/blob/master/docs/link-env-deprecated.md">links</a></em> работают по-старому только <em><a href="https://github.com/docker/compose/blob/master/docs/compose-file.md#network_mode">network_mode</a></em>: bridge.</p> <figure class="highlight"><pre><code class="language-bash" data-lang="bash">version: <span class="s1">'2'</span>
+services:
+  app:
+    build: .
+    ports:
+      - <span class="s1">'3000:3000'</span>
+    volumes:
+      - .:/home/web
+    depends_on:
+      - db
+    links:
+      - db
+    network_mode: bridge
+  db:
+    image: sameersbn/postgresql
+    ports:
+      - <span class="s1">'5432'</span>
+    volumes:
+      - db_data:/var/lib/postgresql
+    env_file:
+      - <span class="nv">$HOME</span>/.docker/<span class="nv">$APP</span>/db.env
+    network_mode: bridge
+volumes:
+  db_data:</code></pre></figure> <h1 id="version-2-without-links-but-use-env-file">Version 2 (<em>without <a href="https://github.com/docker/compose/blob/master/docs/link-env-deprecated.md">links</a>, but use <a href="https://github.com/docker/compose/blob/master/docs/compose-file.md#env_file">env file</a></em>)</h1> <figure class="highlight"><pre><code class="language-bash" data-lang="bash">version: <span class="s1">'2'</span>
+services:
+  app:
+    build: .
+    ports:
+      - <span class="s1">'3000:3000'</span>
+    volumes:
+      - .:/home/web
+    depends_on:
+      - db
+    env_file:
+      - <span class="nv">$HOME</span>/.docker/<span class="nv">$APP</span>/db.env
+  db:
+    image: sameersbn/postgresql
+    ports:
+      - <span class="s1">'5432'</span>
+    volumes:
+      - db_data:/var/lib/postgresql
+    env_file:
+      - <span class="nv">$HOME</span>/.docker/<span class="nv">$APP</span>/db.env
+volumes:
+  db_data:</code></pre></figure> <p>Спасибо за просмотр …</p> </div> <div id="disqus_thread"> <ul id="dsq-comments"> </ul> </div> <div id="disqus_thread"></div> <script type="text/javascript">
+    var disqus_shortname = 'AfsmNGhr';
+    var disqus_identifier = "/docker/docker-compose-switch-to-version-2";
+
+    (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+
+    })();
+  </script> <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> </article> </div> </div> <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)
+  },i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-74406905-1', 'auto');
+  ga('send', 'pageview');
+</script> </body> </html>

@@ -1,138 +1,138 @@
-<!DOCTYPE html> <html> <head> <meta charset="utf-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1"> <meta name="google-site-verification" content="GdZfeJy-N12vCYzv2nNG8XUaOK70482Wh2CZ0NlrrAI"> <title>Повеливаем демонами или <br> Настройка mpd</title> <meta name="description" content="Установка"> <meta name="robots" content="INDEX,FOLLOW"> <meta name="keywords" content="arch,mpd,mpc,flac,ncmpcpp,sxhkdrc"> <link rel="stylesheet" href="/css/main.css"> <link rel="canonical" href="https://afsmnghr.gihub.io/tools/mpd-setting/"> <link rel="alternate" type="application/rss+xml" title="DataTrash" href="https://afsmnghr.gihub.io/feed.xml"> </head> <body> <div class='fixed'> <header class="site-header"> <div class="wrapper"> <a class="site-title" href="/">DataTrash</a> <nav class="site-nav"> <a href="#" class="menu-icon"> <svg viewBox="0 0 18 15"> <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/> <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/> <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/> </svg> </a> <div class="trigger"> </div> </nav> </div> </header> </div> <div class="page-content"> <div class="wrapper"> <article class="post" itemscope itemtype="http://schema.org/BlogPosting"> <header class="post-header"> <h1 class="post-title" itemprop="name headline">Повеливаем демонами или <br> Настройка mpd</h1> <p class="post-meta"><time datetime="2015-04-12T12:25:00+03:00" itemprop="datePublished">Apr 12, 2015</time> • <span>arch • mpd • mpc • flac • ncmpcpp • sxhkdrc</span> • </p> </header> <div class="post-content" itemprop="articleBody"> <h1 id="section">Установка</h1> <div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo pacman -Sy mpd mpc ncmpcpp</code></pre></div> <h1 id="section-1">Настройка</h1> <p><em>Config`урируем ~/.config/mpd/mpd.conf</em></p> <div class="highlight"><pre><code class="language-bash" data-lang="bash">bind_to_address <span class="s2">&quot;127.0.0.1&quot;</span>
-port <span class="s2">&quot;6600&quot;</span>
+<!DOCTYPE html> <html> <head> <meta charset="utf-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1"> <meta name="google-site-verification" content="GdZfeJy-N12vCYzv2nNG8XUaOK70482Wh2CZ0NlrrAI"> <title>Повеливаем демонами или <br> Настройка mpd</title> <meta name="description" content="Установка"> <meta name="robots" content="INDEX,FOLLOW"> <meta name="keywords" content="arch,mpd,mpc,flac,ncmpcpp,sxhkdrc"> <link rel="stylesheet" href="/css/main.css"> <link rel="canonical" href="https://afsmnghr.gihub.io/tools/mpd-setting/"> <link rel="alternate" type="application/rss+xml" title="DataTrash" href="https://afsmnghr.gihub.io/feed.xml"> </head> <body> <div class='fixed'> <header class="site-header"> <div class="wrapper"> <a class="site-title" href="/">DataTrash</a> <nav class="site-nav"> <a href="#" class="menu-icon"> <svg viewBox="0 0 18 15"> <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/> <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/> <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/> </svg> </a> <div class="trigger"> </div> </nav> </div> </header> </div> <div class="page-content"> <div class="wrapper"> <article class="post" itemscope itemtype="http://schema.org/BlogPosting"> <header class="post-header"> <h1 class="post-title" itemprop="name headline">Повеливаем демонами или <br> Настройка mpd</h1> <p class="post-meta"><time datetime="2015-04-12T12:25:00+03:00" itemprop="datePublished">Apr 12, 2015</time> • <span>arch • mpd • mpc • flac • ncmpcpp • sxhkdrc</span> • </p> </header> <div class="post-content" itemprop="articleBody"> <h1 id="Установка">Установка</h1> <figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo pacman -Sy mpd mpc ncmpcpp</code></pre></figure> <h1 id="Настройка">Настройка</h1> <p><em>Config`урируем ~/.config/mpd/mpd.conf</em></p> <figure class="highlight"><pre><code class="language-bash" data-lang="bash">bind_to_address <span class="s2">"127.0.0.1"</span>
+port <span class="s2">"6600"</span>
 
-music_directory <span class="s2">&quot;~/Music&quot;</span>
-playlist_directory <span class="s2">&quot;~/.config/mpd/playlists&quot;</span>
-db_file <span class="s2">&quot;~/.config/mpd/db&quot;</span>
-log_file <span class="s2">&quot;~/.config/mpd/log&quot;</span>
-pid_file <span class="s2">&quot;~/.config/mpd/pid&quot;</span>
-state_file <span class="s2">&quot;~/.config/mpd/state&quot;</span>
+music_directory <span class="s2">"~/Music"</span>
+playlist_directory <span class="s2">"~/.config/mpd/playlists"</span>
+db_file <span class="s2">"~/.config/mpd/db"</span>
+log_file <span class="s2">"~/.config/mpd/log"</span>
+pid_file <span class="s2">"~/.config/mpd/pid"</span>
+state_file <span class="s2">"~/.config/mpd/state"</span>
 
 audio_output <span class="o">{</span>
-<span class="nb">type</span> <span class="s2">&quot;pulse&quot;</span> <span class="c"># or alsa</span>
-name <span class="s2">&quot;MPD pulse&quot;</span>
-mixer_type <span class="s2">&quot;software&quot;</span>
+<span class="nb">type</span> <span class="s2">"pulse"</span> <span class="c"># or alsa</span>
+name <span class="s2">"MPD pulse"</span>
+mixer_type <span class="s2">"software"</span>
 <span class="o">}</span>
 
 audio_output <span class="o">{</span>
-<span class="nb">type</span>   <span class="s2">&quot;fifo&quot;</span> <span class="c"># for visualization</span>
-name   <span class="s2">&quot;MPD FIFO&quot;</span>
-path   <span class="s2">&quot;/tmp/mpd.fifo&quot;</span>
-format <span class="s2">&quot;44100:16:2&quot;</span>
-<span class="o">}</span></code></pre></div> <p><em>Настраиваем клиент ~/.ncmpcpp/config</em></p> <div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">mpd_host</span> <span class="o">=</span> localhost
-<span class="nv">mpd_port</span> <span class="o">=</span> 6600
-<span class="nv">mpd_music_dir</span> <span class="o">=</span> ~/Music
-<span class="nv">mpd_crossfade_time</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span>
+<span class="nb">type</span>   <span class="s2">"fifo"</span> <span class="c"># for visualization</span>
+name   <span class="s2">"MPD FIFO"</span>
+path   <span class="s2">"/tmp/mpd.fifo"</span>
+format <span class="s2">"44100:16:2"</span>
+<span class="o">}</span></code></pre></figure> <p><em>Настраиваем клиент ~/.ncmpcpp/config</em></p> <figure class="highlight"><pre><code class="language-bash" data-lang="bash">mpd_host <span class="o">=</span> localhost
+mpd_port <span class="o">=</span> 6600
+mpd_music_dir <span class="o">=</span> ~/Music
+mpd_crossfade_time <span class="o">=</span> <span class="s2">"0"</span>
 
-<span class="nv">ncmpcpp_directory</span> <span class="o">=</span> <span class="s2">&quot;~/.ncmpcpp&quot;</span>
-<span class="nv">lyrics_directory</span> <span class="o">=</span> <span class="s2">&quot;~/.ncmpcpp/lyrics&quot;</span>
+ncmpcpp_directory <span class="o">=</span> <span class="s2">"~/.ncmpcpp"</span>
+lyrics_directory <span class="o">=</span> <span class="s2">"~/.ncmpcpp/lyrics"</span>
 
-<span class="nv">mouse_support</span> <span class="o">=</span> <span class="s2">&quot;yes&quot;</span>
-<span class="nv">mouse_list_scroll_whole_page</span> <span class="o">=</span> <span class="s2">&quot;no&quot;</span>
-<span class="nv">lines_scrolled</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
-<span class="nv">autocenter_mode</span> <span class="o">=</span> <span class="s2">&quot;yes&quot;</span>
-<span class="nv">centered_cursor</span> <span class="o">=</span> <span class="s2">&quot;yes&quot;</span>
-<span class="nv">cyclic_scrolling</span> <span class="o">=</span> <span class="s2">&quot;yes&quot;</span>
-<span class="nv">jump_to_now_playing_song_at_start</span> <span class="o">=</span> <span class="s2">&quot;yes&quot;</span>
+mouse_support <span class="o">=</span> <span class="s2">"yes"</span>
+mouse_list_scroll_whole_page <span class="o">=</span> <span class="s2">"no"</span>
+lines_scrolled <span class="o">=</span> <span class="s2">"1"</span>
+autocenter_mode <span class="o">=</span> <span class="s2">"yes"</span>
+centered_cursor <span class="o">=</span> <span class="s2">"yes"</span>
+cyclic_scrolling <span class="o">=</span> <span class="s2">"yes"</span>
+jump_to_now_playing_song_at_start <span class="o">=</span> <span class="s2">"yes"</span>
 
-<span class="nv">song_status_format</span> <span class="o">=</span> <span class="s2">&quot;$7%t$9 $8by$9 $3%a$9&quot;</span>
-<span class="nv">song_list_format</span> <span class="o">=</span> <span class="s2">&quot;{$3 %a $9$1&gt;&gt;$9$7 %t $9$R$3 %n $1&lt;&lt;$9 %l $9}|{$8 %f$9}&quot;</span>
-<span class="nv">now_playing_prefix</span> <span class="o">=</span> <span class="s2">&quot;$b&quot;</span>
-<span class="nv">now_playing_suffix</span> <span class="o">=</span> <span class="s2">&quot;$/b&quot;</span>
-<span class="nv">progressbar_look</span> <span class="o">=</span> <span class="s2">&quot;─╼─&quot;</span>
+song_status_format <span class="o">=</span> <span class="s2">"</span><span class="nv">$7</span><span class="s2">%t</span><span class="nv">$9</span><span class="s2"> </span><span class="nv">$8by$9</span><span class="s2"> </span><span class="nv">$3</span><span class="s2">%a</span><span class="nv">$9</span><span class="s2">"</span>
+song_list_format <span class="o">=</span> <span class="s2">"{</span><span class="nv">$3</span><span class="s2"> %a </span><span class="nv">$9$1</span><span class="s2">&gt;&gt;</span><span class="nv">$9$7</span><span class="s2"> %t </span><span class="nv">$9$R$3</span><span class="s2"> %n </span><span class="nv">$1</span><span class="s2">&lt;&lt;</span><span class="nv">$9</span><span class="s2"> %l </span><span class="nv">$9</span><span class="s2">}|{</span><span class="nv">$8</span><span class="s2"> %f</span><span class="nv">$9</span><span class="s2">}"</span>
+now_playing_prefix <span class="o">=</span> <span class="s2">"</span><span class="nv">$b</span><span class="s2">"</span>
+now_playing_suffix <span class="o">=</span> <span class="s2">"</span><span class="nv">$/</span><span class="s2">b"</span>
+progressbar_look <span class="o">=</span> <span class="s2">"─╼─"</span>
 
-<span class="nv">playlist_display_mode</span> <span class="o">=</span> classic
-<span class="nv">progressbar_color</span> <span class="o">=</span> red
-<span class="nv">progressbar_elapsed_color</span> <span class="o">=</span> green
-<span class="nv">main_window_color</span> <span class="o">=</span> red
-<span class="nv">main_window_highlight_color</span> <span class="o">=</span> green
-<span class="nv">active_column_color</span> <span class="o">=</span> blue
+playlist_display_mode <span class="o">=</span> classic
+progressbar_color <span class="o">=</span> red
+progressbar_elapsed_color <span class="o">=</span> green
+main_window_color <span class="o">=</span> red
+main_window_highlight_color <span class="o">=</span> green
+active_column_color <span class="o">=</span> blue
 
-<span class="nv">visualizer_fifo_path</span> <span class="o">=</span> <span class="s2">&quot;/tmp/mpd.fifo&quot;</span>
-<span class="nv">visualizer_output_name</span> <span class="o">=</span> <span class="s2">&quot;ncmpcpp&quot;</span>
-<span class="nv">visualizer_in_stereo</span> <span class="o">=</span> <span class="s2">&quot;yes&quot;</span>
+visualizer_fifo_path <span class="o">=</span> <span class="s2">"/tmp/mpd.fifo"</span>
+visualizer_output_name <span class="o">=</span> <span class="s2">"ncmpcpp"</span>
+visualizer_in_stereo <span class="o">=</span> <span class="s2">"yes"</span>
 <span class="c">#visualizer_sample_multiplier = 10</span>
-<span class="nv">visualizer_sync_interval</span> <span class="o">=</span> 1
-<span class="nv">visualizer_type</span> <span class="o">=</span> wave
-<span class="nv">visualizer_look</span> <span class="o">=</span> <span class="s2">&quot;--&quot;</span></code></pre></div> <p><em>Добавляем hotkeys, используя ~/.config/sxhkd/sxhkdrc (или любой другой)</em></p> <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">XF86AudioNext</span>
-<span class="nx">mpc</span> <span class="nx">next</span> <span class="o">&amp;&amp;</span> <span class="nx">notify</span><span class="o">-</span><span class="nx">send</span> <span class="s2">&quot;     `mpc current`&quot;</span> <span class="o">-</span><span class="nx">t</span> <span class="mi">3</span>
+visualizer_sync_interval <span class="o">=</span> 1
+visualizer_type <span class="o">=</span> wave
+visualizer_look <span class="o">=</span> <span class="s2">"--"</span></code></pre></figure> <p><em>Добавляем hotkeys, используя ~/.config/sxhkd/sxhkdrc (или любой другой)</em></p> <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">XF86AudioNext</span>
+<span class="nx">mpc</span> <span class="nx">next</span> <span class="o">&amp;&amp;</span> <span class="nx">notify</span><span class="o">-</span><span class="nx">send</span> <span class="s2">"     `mpc current`"</span> <span class="o">-</span><span class="nx">t</span> <span class="mi">3</span>
 
 <span class="nx">XF86AudioPrev</span>
-<span class="nx">mpc</span> <span class="nx">prev</span> <span class="o">&amp;&amp;</span> <span class="nx">notify</span><span class="o">-</span><span class="nx">send</span> <span class="s2">&quot;     `mpc current`&quot;</span> <span class="o">-</span><span class="nx">t</span> <span class="mi">3</span>
+<span class="nx">mpc</span> <span class="nx">prev</span> <span class="o">&amp;&amp;</span> <span class="nx">notify</span><span class="o">-</span><span class="nx">send</span> <span class="s2">"     `mpc current`"</span> <span class="o">-</span><span class="nx">t</span> <span class="mi">3</span>
 
 <span class="nx">XF86AudioPlay</span>
-<span class="nx">mpc</span> <span class="nx">toggle</span> <span class="o">&amp;&amp;</span> <span class="nx">notify</span><span class="o">-</span><span class="nx">send</span> <span class="s2">&quot;     `mpc status`&quot;</span> <span class="o">-</span><span class="nx">t</span> <span class="mi">3</span></code></pre></div> <h1 id="flac">Flac</h1> <p><em>MPD проигрывает flac целиком <br/> ncmpcpp читает cue, но в playlist добавляет flac <br/> Решение разбиваем flac в соответствии cue</em></p> <div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo pacman -Sy cuetools shntool</code></pre></div> <p><em>Ниже script разбивает flac и наполняет тегами из cue <br/> после удаляет текущий flac и cue</em></p> <div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+<span class="nx">mpc</span> <span class="nx">toggle</span> <span class="o">&amp;&amp;</span> <span class="nx">notify</span><span class="o">-</span><span class="nx">send</span> <span class="s2">"     `mpc status`"</span> <span class="o">-</span><span class="nx">t</span> <span class="mi">3</span></code></pre></figure> <h1 id="flac">Flac</h1> <p><em>MPD проигрывает flac целиком <br/> ncmpcpp читает cue, но в playlist добавляет flac <br/> Решение разбиваем flac в соответствии cue</em></p> <figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo pacman -Sy cuetools shntool</code></pre></figure> <p><em>Ниже script разбивает flac и наполняет тегами из cue <br/> после удаляет текущий flac и cue</em></p> <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
 
 fix <span class="o">()</span> <span class="o">{</span>
-<span class="k">for</span> a in *.flac<span class="p">;</span> <span class="k">do</span>
-<span class="nv">ARTIST</span><span class="o">=</span><span class="sb">`</span>metaflac <span class="s2">&quot;$a&quot;</span> --show-tag<span class="o">=</span>ARTIST <span class="p">|</span> sed s/.*<span class="o">=</span>//g<span class="sb">`</span>
-<span class="nv">TITLE</span><span class="o">=</span><span class="sb">`</span>metaflac <span class="s2">&quot;$a&quot;</span> --show-tag<span class="o">=</span>TITLE <span class="p">|</span> sed s/.*<span class="o">=</span>//g<span class="sb">`</span>
-<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$ARTIST&quot;</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="o">]</span>
-<span class="k">then</span>
-mv <span class="s2">&quot;$a&quot;</span> <span class="s2">&quot;$TITLE.flac&quot;</span>
-<span class="k">else</span>
-mv <span class="s2">&quot;$a&quot;</span> <span class="s2">&quot;$ARTIST - $TITLE.flac&quot;</span>
-<span class="k">fi</span>
-<span class="k">done</span>
+<span class="k">for </span>a <span class="k">in</span> <span class="k">*</span>.flac; <span class="k">do
+</span><span class="nv">ARTIST</span><span class="o">=</span><span class="sb">`</span>metaflac <span class="s2">"</span><span class="nv">$a</span><span class="s2">"</span> --show-tag<span class="o">=</span>ARTIST | sed s/.<span class="k">*</span><span class="o">=</span>//g<span class="sb">`</span>
+<span class="nv">TITLE</span><span class="o">=</span><span class="sb">`</span>metaflac <span class="s2">"</span><span class="nv">$a</span><span class="s2">"</span> --show-tag<span class="o">=</span>TITLE | sed s/.<span class="k">*</span><span class="o">=</span>//g<span class="sb">`</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$ARTIST</span><span class="s2">"</span> <span class="o">==</span> <span class="s1">''</span> <span class="o">]</span>
+<span class="k">then
+</span>mv <span class="s2">"</span><span class="nv">$a</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$TITLE</span><span class="s2">.flac"</span>
+<span class="k">else
+</span>mv <span class="s2">"</span><span class="nv">$a</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$ARTIST</span><span class="s2"> - </span><span class="nv">$TITLE</span><span class="s2">.flac"</span>
+<span class="k">fi
+done</span>
 <span class="o">}</span>
 
 reaper <span class="o">()</span> <span class="o">{</span>
-cuebreakpoints *.cue <span class="p">|</span> shnsplit -o flac *.flac
-cuetag.sh *.cue split-track*.flac
-rm <span class="s2">&quot;$(ls *.flac | grep -v &#39;split-track&#39;)&quot;</span>
-rm *.cue
+cuebreakpoints <span class="k">*</span>.cue | shnsplit -o flac <span class="k">*</span>.flac
+cuetag.sh <span class="k">*</span>.cue split-track<span class="k">*</span>.flac
+rm <span class="s2">"</span><span class="k">$(</span>ls <span class="k">*</span>.flac | grep -v <span class="s1">'split-track'</span><span class="k">)</span><span class="s2">"</span>
+rm <span class="k">*</span>.cue
 fix
 <span class="o">}</span>
 
 artist <span class="o">()</span> <span class="o">{</span>
-<span class="k">for</span> a in *.flac<span class="p">;</span> <span class="k">do</span>
-metaflac <span class="s2">&quot;$a&quot;</span> --set-tag <span class="nv">ARTIST</span><span class="o">=</span><span class="s2">&quot;$2&quot;</span>
+<span class="k">for </span>a <span class="k">in</span> <span class="k">*</span>.flac; <span class="k">do
+</span>metaflac <span class="s2">"</span><span class="nv">$a</span><span class="s2">"</span> --set-tag <span class="nv">ARTIST</span><span class="o">=</span><span class="s2">"</span><span class="nv">$2</span><span class="s2">"</span>
 <span class="k">done</span>
 <span class="o">}</span>
 
 <span class="nb">help</span> <span class="o">()</span> <span class="o">{</span>
-<span class="nb">echo</span> <span class="s2">&quot;Usage:&quot;</span>
-<span class="nb">echo</span> <span class="s2">&quot;      $0&quot;</span>
-<span class="nb">echo</span> <span class="s2">&quot;Main options:&quot;</span>
-<span class="nb">echo</span> <span class="s2">&quot;    -a  --artist  : set ARTIST for all songs&quot;</span>
-<span class="nb">echo</span> <span class="s2">&quot;    -f  --fix     : fix songs name ARTIST - TITLE or TITLE&quot;</span>
-<span class="nb">echo</span> <span class="s2">&quot;    -r  --reaper  : cut flac on tracks and add metatags&quot;</span>
-<span class="nb">echo</span> <span class="s2">&quot;    -h  --help    : print help and exit&quot;</span>
+<span class="nb">echo</span> <span class="s2">"Usage:"</span>
+<span class="nb">echo</span> <span class="s2">"      </span><span class="nv">$0</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"Main options:"</span>
+<span class="nb">echo</span> <span class="s2">"    -a  --artist  : set ARTIST for all songs"</span>
+<span class="nb">echo</span> <span class="s2">"    -f  --fix     : fix songs name ARTIST - TITLE or TITLE"</span>
+<span class="nb">echo</span> <span class="s2">"    -r  --reaper  : cut flac on tracks and add metatags"</span>
+<span class="nb">echo</span> <span class="s2">"    -h  --help    : print help and exit"</span>
 <span class="o">}</span>
 
-<span class="k">case</span> <span class="nv">$1</span> in
--a<span class="p">|</span>--artist<span class="o">)</span>  artist     <span class="p">;;</span>
--r<span class="p">|</span>--reaper<span class="o">)</span>  reaper     <span class="p">;;</span>
--f<span class="p">|</span>--fix<span class="o">)</span>     fix        <span class="p">;;</span>
--h<span class="p">|</span>--help<span class="o">)</span>    <span class="nb">help</span>       <span class="p">;;</span>
-*<span class="o">)</span>
-<span class="nb">echo</span> <span class="s2">&quot;&#39;$1&#39; is not valid command&quot;</span>
+<span class="k">case</span> <span class="nv">$1</span> <span class="k">in</span>
+-a|--artist<span class="p">)</span>  artist     <span class="p">;;</span>
+-r|--reaper<span class="p">)</span>  reaper     <span class="p">;;</span>
+-f|--fix<span class="p">)</span>     fix        <span class="p">;;</span>
+-h|--help<span class="p">)</span>    <span class="nb">help</span>       <span class="p">;;</span>
+<span class="k">*</span><span class="p">)</span>
+<span class="nb">echo</span> <span class="s2">"'</span><span class="nv">$1</span><span class="s2">' is not valid command"</span>
 <span class="nb">help</span>
 <span class="p">;;</span>
 <span class="k">esac</span>
 
-<span class="nb">exit </span>0</code></pre></div> <h1 id="section-2">Автоматизация</h1> <p><em>Toggle mpd</em></p> <div class="highlight"><pre><code class="language-bash" data-lang="bash">mpd <span class="o">()</span> <span class="o">{</span>
-<span class="nv">status</span><span class="o">=</span><span class="k">$(</span>systemctl status mpd --user <span class="p">|</span> awk <span class="s1">&#39;/Active:/{printf $2}&#39;</span><span class="k">)</span>
-<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$status&quot;</span> <span class="o">==</span> <span class="s1">&#39;active&#39;</span> <span class="o">]</span>
-<span class="k">then</span>
-systemctl stop mpd --user
-<span class="k">else</span>
-systemctl start mpd --user
+<span class="nb">exit </span>0</code></pre></figure> <h1 id="Автоматизация">Автоматизация</h1> <p><em>Toggle mpd</em></p> <figure class="highlight"><pre><code class="language-bash" data-lang="bash">mpd <span class="o">()</span> <span class="o">{</span>
+<span class="nv">status</span><span class="o">=</span><span class="k">$(</span>systemctl status mpd --user | awk <span class="s1">'/Active:/{printf $2}'</span><span class="k">)</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$status</span><span class="s2">"</span> <span class="o">==</span> <span class="s1">'active'</span> <span class="o">]</span>
+<span class="k">then
+</span>systemctl stop mpd --user
+<span class="k">else
+</span>systemctl start mpd --user
 <span class="k">fi</span>
-<span class="o">}</span></code></pre></div> <p><em>Choose, remove and load playlist</em></p> <div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+<span class="o">}</span></code></pre></figure> <p><em>Choose, remove and load playlist</em></p> <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
 
 delimiter <span class="o">()</span> <span class="o">{</span>
-    <span class="nb">echo</span> <span class="s2">&quot;                   &quot;</span>
-    <span class="nb">echo</span> <span class="s2">&quot;*=================*&quot;</span>
-    <span class="nb">echo</span> <span class="s2">&quot;                   &quot;</span>
+    <span class="nb">echo</span> <span class="s2">"                   "</span>
+    <span class="nb">echo</span> <span class="s2">"*=================*"</span>
+    <span class="nb">echo</span> <span class="s2">"                   "</span>
 <span class="o">}</span>
 
 mpd <span class="o">()</span> <span class="o">{</span>
-    <span class="nv">status</span><span class="o">=</span><span class="k">$(</span>systemctl status mpd --user <span class="p">|</span> awk <span class="s1">&#39;/Active:/{printf $2}&#39;</span><span class="k">)</span>
+    <span class="nv">status</span><span class="o">=</span><span class="k">$(</span>systemctl status mpd --user | awk <span class="s1">'/Active:/{printf $2}'</span><span class="k">)</span>
 
-    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$status&quot;</span> !<span class="o">=</span> <span class="s1">&#39;active&#39;</span> <span class="o">]</span>
-    <span class="k">then</span>
-        systemctl start mpd --user
+    <span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$status</span><span class="s2">"</span> !<span class="o">=</span> <span class="s1">'active'</span> <span class="o">]</span>
+    <span class="k">then
+        </span>systemctl start mpd --user
         sleep 6
     <span class="k">fi</span>
 <span class="o">}</span>
@@ -141,74 +141,74 @@ add <span class="o">()</span> <span class="o">{</span>
     mpd
     delimiter
     mpc clear
-    mpc add <span class="s2">&quot;$1&quot;</span>
-    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$2&quot;</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="o">]</span><span class="p">;</span>
-    <span class="k">then</span>
-        mpc save <span class="s2">&quot;$1&quot;</span>
-    <span class="k">else</span>
-        mpc save <span class="s2">&quot;$2&quot;</span>
-    <span class="k">fi</span>
-    delimiter
+    mpc add <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$2</span><span class="s2">"</span> <span class="o">==</span> <span class="s1">''</span> <span class="o">]</span>;
+    <span class="k">then
+        </span>mpc save <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span>
+    <span class="k">else
+        </span>mpc save <span class="s2">"</span><span class="nv">$2</span><span class="s2">"</span>
+    <span class="k">fi
+    </span>delimiter
     mpc play
-    notify-send <span class="s2">&quot;    `mpc current`&quot;</span> -t 3
+    notify-send <span class="s2">"    </span><span class="sb">`</span>mpc current<span class="sb">`</span><span class="s2">"</span> -t 3
     delimiter
-    <span class="nb">echo</span> <span class="s2">&quot;     Playlists    &quot;</span>
+    <span class="nb">echo</span> <span class="s2">"     Playlists    "</span>
     delimiter
     mpc lsplaylists
     delimiter
 <span class="o">}</span>
 
 remove <span class="o">()</span> <span class="o">{</span>
-    rm ~/.config/mpd/playlists/<span class="s2">&quot;$1.m3u&quot;</span>
+    rm ~/.config/mpd/playlists/<span class="s2">"</span><span class="nv">$1</span><span class="s2">.m3u"</span>
 <span class="o">}</span>
 
 load <span class="o">()</span> <span class="o">{</span>
     mpd
     mpc clear
 
-    <span class="k">case</span> <span class="nv">$1</span> in
-        g<span class="p">|</span>G<span class="o">)</span>
+    <span class="k">case</span> <span class="nv">$1</span> <span class="k">in
+        </span>g|G<span class="p">)</span>
             mpc load gothic
             <span class="p">;;</span>
-        f<span class="p">|</span>F<span class="o">)</span>
+        f|F<span class="p">)</span>
             mpc load futurepop
             <span class="p">;;</span>
-        n<span class="p">|</span>N<span class="o">)</span>
+        n|N<span class="p">)</span>
             mpc load neoclassical
             <span class="p">;;</span>
-        j<span class="p">|</span>J<span class="o">)</span>
+        j|J<span class="p">)</span>
             mpc load jrock
             <span class="p">;;</span>
-        *<span class="o">)</span>
+        <span class="k">*</span><span class="p">)</span>
             mpc load neoclassical
             <span class="p">;;</span>
     <span class="k">esac</span>
 
     mpc play
-    notify-send <span class="s2">&quot;    `mpc current`&quot;</span> -t 3
+    notify-send <span class="s2">"    </span><span class="sb">`</span>mpc current<span class="sb">`</span><span class="s2">"</span> -t 3
 <span class="o">}</span>
 
 <span class="nb">help</span> <span class="o">()</span> <span class="o">{</span>
-    <span class="nb">echo</span> <span class="s2">&quot;Usage:&quot;</span>
-    <span class="nb">echo</span> <span class="s2">&quot;      $0&quot;</span>
-    <span class="nb">echo</span> <span class="s2">&quot;Main options:&quot;</span>
-    <span class="nb">echo</span> <span class="s2">&quot;    -a  --add     : add playlist with name or dirname and start&quot;</span>
-    <span class="nb">echo</span> <span class="s2">&quot;    -r  --remove  : remove playist&quot;</span>
-    <span class="nb">echo</span> <span class="s2">&quot;    -h  --help    : print help and exit&quot;</span>
+    <span class="nb">echo</span> <span class="s2">"Usage:"</span>
+    <span class="nb">echo</span> <span class="s2">"      </span><span class="nv">$0</span><span class="s2">"</span>
+    <span class="nb">echo</span> <span class="s2">"Main options:"</span>
+    <span class="nb">echo</span> <span class="s2">"    -a  --add     : add playlist with name or dirname and start"</span>
+    <span class="nb">echo</span> <span class="s2">"    -r  --remove  : remove playist"</span>
+    <span class="nb">echo</span> <span class="s2">"    -h  --help    : print help and exit"</span>
 <span class="o">}</span>
 
-<span class="k">case</span> <span class="nv">$1</span> in
-    -a<span class="p">|</span>--add<span class="o">)</span>     add <span class="nv">$2</span> <span class="nv">$3</span>        <span class="p">;;</span>
-    -l<span class="p">|</span>--load<span class="o">)</span>    load <span class="nv">$2</span>          <span class="p">;;</span>
-    -r<span class="p">|</span>--remove<span class="o">)</span>  remove <span class="nv">$2</span>        <span class="p">;;</span>
-    -h<span class="p">|</span>--help<span class="o">)</span>    <span class="nb">help</span>             <span class="p">;;</span>
-    *<span class="o">)</span>
-        <span class="nb">echo</span> <span class="s2">&quot;&#39;$1&#39; is not valid command&quot;</span>
+<span class="k">case</span> <span class="nv">$1</span> <span class="k">in</span>
+    -a|--add<span class="p">)</span>     add <span class="nv">$2</span> <span class="nv">$3</span>        <span class="p">;;</span>
+    -l|--load<span class="p">)</span>    load <span class="nv">$2</span>          <span class="p">;;</span>
+    -r|--remove<span class="p">)</span>  remove <span class="nv">$2</span>        <span class="p">;;</span>
+    -h|--help<span class="p">)</span>    <span class="nb">help</span>             <span class="p">;;</span>
+    <span class="k">*</span><span class="p">)</span>
+        <span class="nb">echo</span> <span class="s2">"'</span><span class="nv">$1</span><span class="s2">' is not valid command"</span>
         <span class="nb">help</span>
         <span class="p">;;</span>
 <span class="k">esac</span>
 
-<span class="nb">exit </span>0</code></pre></div> </div> <div id="disqus_thread"> <ul id="dsq-comments"> </ul> </div> <div id="disqus_thread"></div> <script type="text/javascript">
+<span class="nb">exit </span>0</code></pre></figure> </div> <div id="disqus_thread"> <ul id="dsq-comments"> </ul> </div> <div id="disqus_thread"></div> <script type="text/javascript">
     var disqus_shortname = 'AfsmNGhr';
     var disqus_identifier = "/tools/mpd-setting/";
 

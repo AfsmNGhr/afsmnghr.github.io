@@ -7,6 +7,19 @@
     <atom:link href="https://afsmnghr.gihub.io/feed.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Tips &amp; Tricks</title>
+      
+      
+      <description>&lt;h3 id=&quot;analytics&quot;&gt;Analytics&lt;/h3&gt;
+
+</description>
+      
+      <pubDate>Sat, 08 Jul 2017 12:46:00 +0300</pubDate>
+      <link>https://afsmnghr.gihub.io/it/tips-and-tricks</link>
+      <guid isPermaLink="true">https://afsmnghr.gihub.io/it/tips-and-tricks</guid>
+    </item>
+    
+    <item>
       <title>Check offline in Angular with interceptor</title>
       
       
@@ -127,22 +140,6 @@
       <pubDate>Sun, 12 Apr 2015 12:25:00 +0300</pubDate>
       <link>https://afsmnghr.gihub.io/tools/mpd-setting/</link>
       <guid isPermaLink="true">https://afsmnghr.gihub.io/tools/mpd-setting/</guid>
-    </item>
-    
-    <item>
-      <title>Трансформация пингвина или &lt;br&gt; Switch Manjaro on Arch</title>
-      
-      
-      <description>&lt;p&gt;&lt;em&gt;Туториал, для тех поставил manjaro,&lt;br /&gt;
-по тем или иным причинам,&lt;br /&gt;
-но всё же хочет перейти на arch … &lt;br /&gt;
-И так переход без переустановки…&lt;br /&gt;&lt;/em&gt;&lt;/p&gt;
-
-</description>
-      
-      <pubDate>Mon, 23 Mar 2015 16:46:00 +0300</pubDate>
-      <link>https://afsmnghr.gihub.io/arch/transform_penguin/</link>
-      <guid isPermaLink="true">https://afsmnghr.gihub.io/arch/transform_penguin/</guid>
     </item>
     
   </channel>
