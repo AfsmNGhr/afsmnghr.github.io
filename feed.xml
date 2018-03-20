@@ -7,6 +7,21 @@
     <atom:link href="https://afsmnghr.gihub.io/feed.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Angular CLI environments in common modules</title>
+      
+      
+      <description>&lt;p&gt;&lt;em&gt;We have few separated angular SPA’s with the same functionality and different environment variables.&lt;/em&gt;
+&lt;em&gt;Let’s make shared environment inside common modules.&lt;/em&gt;
+&lt;em&gt;Firstly, &lt;a href=&quot;https://medium.com/@tomastrajan/6-best-practices-pro-tips-for-angular-cli-better-developer-experience-7b328bc9db81&quot;&gt;setup aliases&lt;/a&gt; for platforms and common modules.&lt;/em&gt;&lt;/p&gt;
+
+</description>
+      
+      <pubDate>Tue, 20 Mar 2018 21:52:00 +0300</pubDate>
+      <link>https://afsmnghr.gihub.io/angular/cli-environments-in-common-modules/</link>
+      <guid isPermaLink="true">https://afsmnghr.gihub.io/angular/cli-environments-in-common-modules/</guid>
+    </item>
+    
+    <item>
       <title>Tips &amp; Tricks</title>
       
       
@@ -127,19 +142,6 @@
       <pubDate>Sat, 16 May 2015 19:49:00 +0300</pubDate>
       <link>https://afsmnghr.gihub.io/rails/multiple-databases/</link>
       <guid isPermaLink="true">https://afsmnghr.gihub.io/rails/multiple-databases/</guid>
-    </item>
-    
-    <item>
-      <title>Повеливаем демонами или &lt;br&gt; Настройка mpd</title>
-      
-      
-      <description>&lt;h1 id=&quot;Установка&quot;&gt;Установка&lt;/h1&gt;
-
-</description>
-      
-      <pubDate>Sun, 12 Apr 2015 12:25:00 +0300</pubDate>
-      <link>https://afsmnghr.gihub.io/tools/mpd-setting/</link>
-      <guid isPermaLink="true">https://afsmnghr.gihub.io/tools/mpd-setting/</guid>
     </item>
     
   </channel>

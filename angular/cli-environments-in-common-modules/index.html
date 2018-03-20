@@ -1,0 +1,124 @@
+<!DOCTYPE html> <html> <head> <meta charset="utf-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1"> <meta name="google-site-verification" content="GdZfeJy-N12vCYzv2nNG8XUaOK70482Wh2CZ0NlrrAI"> <title>Angular CLI environments in common modules</title> <meta name="description" content="We have few separated angular SPA’s with the same functionality and different environment variables.Let’s make shared environment inside common modules.First..."> <meta name="robots" content="INDEX,FOLLOW"> <meta name="keywords" content="angular,cli,multiplatform,env"> <link rel="stylesheet" href="/css/main.css"> <link rel="canonical" href="https://afsmnghr.gihub.io/angular/cli-environments-in-common-modules/"> <link rel="alternate" type="application/rss+xml" title="DataTrash" href="https://afsmnghr.gihub.io/feed.xml"> </head> <body> <div class='fixed'> <header class="site-header"> <div class="wrapper"> <a class="site-title" href="/">DataTrash</a> <nav class="site-nav"> <a href="#" class="menu-icon"> <svg viewBox="0 0 18 15"> <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/> <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/> <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/> </svg> </a> <div class="trigger"> </div> </nav> </div> </header> </div> <div class="page-content"> <div class="wrapper"> <article class="post" itemscope itemtype="http://schema.org/BlogPosting"> <header class="post-header"> <h1 class="post-title" itemprop="name headline">Angular CLI environments in common modules</h1> <p class="post-meta"><time datetime="2018-03-20T21:52:00+03:00" itemprop="datePublished">Mar 20, 2018</time> • <span>angular • cli • multiplatform • env</span> • </p> </header> <div class="post-content" itemprop="articleBody"> <p><em>We have few separated angular SPA’s with the same functionality and different environment variables.</em> <em>Let’s make shared environment inside common modules.</em> <em>Firstly, <a href="https://medium.com/@tomastrajan/6-best-practices-pro-tips-for-angular-cli-better-developer-experience-7b328bc9db81">setup aliases</a> for platforms and common modules.</em></p> <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="p">{</span>
+  <span class="s2">"compilerOptions"</span><span class="err">:</span> <span class="p">{</span>
+    <span class="s2">"..."</span><span class="err">:</span> <span class="s2">"reduced for brevity"</span><span class="p">,</span>
+
+    <span class="s2">"baseUrl"</span><span class="err">:</span> <span class="s2">"src"</span><span class="p">,</span>
+    <span class="s2">"paths"</span><span class="err">:</span> <span class="p">{</span>
+      <span class="s2">"@platform_foo/*"</span><span class="err">:</span> <span class="p">[</span><span class="s2">"platform_foo/*"</span><span class="p">],</span>
+      <span class="s2">"@platform_bar/*"</span><span class="err">:</span> <span class="p">[</span><span class="s2">"platform_bar/*"</span><span class="p">],</span>
+      <span class="s2">"@common/*"</span><span class="err">:</span> <span class="p">[</span><span class="s2">"common/*"</span><span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure> <p><em>Create <strong>index.ts</strong> in <strong>platform_foo/environments</strong></em>.</p> <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="k">export</span> <span class="o">*</span> <span class="k">from</span> <span class="s1">'./environment'</span><span class="p">;</span></code></pre></figure> <p><em>Use aliases for environment variables.</em></p> <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="k">import</span> <span class="p">{</span> <span class="nx">environment</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@platform_foo/environments'</span><span class="p">;</span></code></pre></figure> <p><em>Make first draft common service - <strong>InfoService</strong>.</em></p> <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="c1">// common/services/info.service.ts</span>
+
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Injectable</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">HttpClient</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/common/http'</span><span class="p">;</span>
+<span class="k">import</span> <span class="s1">'rxjs/add/operator/toPromise'</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">Injectable</span><span class="p">()</span>
+<span class="k">export</span> <span class="kr">class</span> <span class="nx">InfoService</span> <span class="p">{</span>
+  <span class="k">private</span> <span class="nx">env</span><span class="err">:</span> <span class="kr">any</span><span class="p">;</span> <span class="c1">// How get env current run application ...</span>
+
+  <span class="kd">constructor</span><span class="p">(</span><span class="k">private</span> <span class="nx">http</span><span class="err">:</span> <span class="nx">HttpClient</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+
+  <span class="nx">getInfo</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span><span class="err">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">any</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span>
+      <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">baseUrl</span><span class="p">}</span><span class="sr">/api/i</span><span class="nx">nfo</span><span class="err">`</span><span class="p">,</span>
+      <span class="p">{</span> <span class="na">params</span><span class="p">:</span> <span class="nx">data</span> <span class="p">}</span>
+    <span class="p">).</span><span class="nx">toPromise</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span>
+      <span class="nx">res</span> <span class="o">=&gt;</span> <span class="nx">res</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure> <p><em>Write <strong>EnvironmentService</strong> in common path. Make shared. Save environment into prototype object.</em></p> <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="c1">// common/services/environment.service.ts</span>
+
+<span class="k">export</span> <span class="kr">class</span> <span class="nx">EnvironmentService</span> <span class="p">{</span>
+  <span class="k">private</span> <span class="nx">env</span><span class="err">:</span> <span class="kr">any</span><span class="p">;</span>
+
+  <span class="k">static</span> <span class="nx">setRoot</span><span class="p">(</span><span class="nx">env</span><span class="err">:</span> <span class="kr">any</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">env</span> <span class="o">=</span> <span class="nx">env</span><span class="p">;</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">env</span> <span class="o">=</span> <span class="k">this</span><span class="p">[</span><span class="s1">'__proto__'</span><span class="p">][</span><span class="s1">'env'</span><span class="p">];</span>
+  <span class="p">}</span>
+
+  <span class="nx">getEnv</span><span class="p">()</span><span class="err">:</span> <span class="kr">any</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">env</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure> <p><em>Pass environment through <strong>AppModule</strong> to <strong>EnvironmentService</strong></em>.</p> <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="c1">// main.ts</span>
+
+<span class="k">import</span> <span class="p">{</span> <span class="nx">enableProdMode</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">platformBrowserDynamic</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/platform-browser-dynamic'</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="p">{</span> <span class="nx">environment</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@platform_foo/environments'</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AppModule</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'./app.module'</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">environment</span><span class="p">.</span><span class="nx">production</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">enableProdMode</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="nx">AppModule</span><span class="p">.</span><span class="nx">setRoot</span><span class="p">(</span><span class="nx">environment</span><span class="p">);</span>
+<span class="nx">platformBrowserDynamic</span><span class="p">().</span><span class="nx">bootstrapModule</span><span class="p">(</span><span class="nx">AppModule</span><span class="p">);</span></code></pre></figure> <p><em>Write static method <strong>setRoot</strong> for transfer</em>.</p> <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="c1">// app.module.ts</span>
+
+<span class="c1">// ...</span>
+
+<span class="k">import</span> <span class="p">{</span> <span class="nx">EnvironmentService</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@common/services'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kr">class</span> <span class="nx">AppModule</span> <span class="p">{</span>
+  <span class="k">static</span> <span class="nx">setRoot</span><span class="p">(</span><span class="nx">env</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="na">ngModule</span><span class="p">:</span> <span class="nx">AppModule</span><span class="p">,</span>
+      <span class="na">providers</span><span class="p">:</span> <span class="p">[</span>
+        <span class="nx">EnvironmentService</span><span class="p">.</span><span class="nx">setRoot</span><span class="p">(</span><span class="nx">env</span><span class="p">)</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure> <p><em>Complete <strong>InfoService</strong> with <strong>EnvironmentService</strong></em>.</p> <figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="c1">// common/services/info.service.ts</span>
+
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Injectable</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">HttpClient</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@angular/common/http'</span><span class="p">;</span>
+<span class="k">import</span> <span class="s1">'rxjs/add/operator/toPromise'</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="p">{</span> <span class="nx">EnvironmentService</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'./environment.service'</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">Injectable</span><span class="p">()</span>
+<span class="k">export</span> <span class="kr">class</span> <span class="nx">InfoService</span> <span class="p">{</span>
+  <span class="k">private</span> <span class="nx">env</span><span class="err">:</span> <span class="kr">any</span><span class="p">;</span>
+
+  <span class="kd">constructor</span><span class="p">(</span>
+    <span class="k">private</span> <span class="nx">http</span><span class="err">:</span> <span class="nx">HttpClient</span><span class="p">,</span>
+    <span class="k">private</span> <span class="nx">environmentService</span><span class="err">:</span> <span class="nx">EnvironmentService</span>
+  <span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">env</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">environmentService</span><span class="p">.</span><span class="nx">getEnv</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="nx">getInfo</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span><span class="err">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">any</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span>
+      <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">baseUrl</span><span class="p">}</span><span class="sr">/api/i</span><span class="nx">nfo</span><span class="err">`</span><span class="p">,</span>
+      <span class="p">{</span> <span class="na">params</span><span class="p">:</span> <span class="nx">data</span> <span class="p">}</span>
+    <span class="p">).</span><span class="nx">toPromise</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span>
+      <span class="nx">res</span> <span class="o">=&gt;</span> <span class="nx">res</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure> <p><em>Now we get environment everywhere. Happy coding!</em></p> </div> <div id="disqus_thread"> <ul id="dsq-comments"> </ul> </div> <div id="disqus_thread"></div> <script type="text/javascript">
+    var disqus_shortname = 'AfsmNGhr';
+    var disqus_identifier = "/angular/cli-environments-in-common-modules/";
+
+    (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+
+    })();
+  </script> <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> </article> </div> </div> <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)
+  },i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-74406905-1', 'auto');
+  ga('send', 'pageview');
+</script> </body> </html>
